@@ -23,5 +23,10 @@ namespace HashFunctionAnalizer
 
 
         }
+
+        private void hashKeyFileChooseBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
