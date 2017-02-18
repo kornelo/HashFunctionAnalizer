@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace HashFunctionAnalizer
 {
-    public partial class Form1 : Form
+    public partial class HashFunctionAnalizerForm : Form
     {
-        public Form1()
+        public HashFunctionAnalizerForm()
         {
             InitializeComponent();
+        }
+
+        private void HashFunctionAnalizerForm_Load(object sender, EventArgs e)
+        {
+            dataGridView1.AutoGenerateColumns = false;
+
+
         }
     }
 }
