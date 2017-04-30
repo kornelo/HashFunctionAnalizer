@@ -44,6 +44,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridViewHashCalculate = new System.Windows.Forms.DataGridView();
             this.generateTextHashBtn = new System.Windows.Forms.Button();
             this.generateFileHashBtn = new System.Windows.Forms.Button();
             this.hashKeyFileChooseBtn = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@
             this.hashKeyField = new System.Windows.Forms.TextBox();
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
-            this.dataGridViewHashCalculate = new System.Windows.Forms.DataGridView();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -232,6 +232,14 @@
             this.tabPage3.Text = "Hash Calculator";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewHashCalculate
+            // 
+            this.dataGridViewHashCalculate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHashCalculate.Location = new System.Drawing.Point(20, 133);
+            this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
+            this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 429);
+            this.dataGridViewHashCalculate.TabIndex = 9;
+            // 
             // generateTextHashBtn
             // 
             this.generateTextHashBtn.Location = new System.Drawing.Point(839, 47);
@@ -308,14 +316,6 @@
             this.hashFilePath.Name = "hashFilePath";
             this.hashFilePath.Size = new System.Drawing.Size(681, 20);
             this.hashFilePath.TabIndex = 0;
-            // 
-            // dataGridViewHashCalculate
-            // 
-            this.dataGridViewHashCalculate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewHashCalculate.Location = new System.Drawing.Point(20, 133);
-            this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
-            this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 429);
-            this.dataGridViewHashCalculate.TabIndex = 9;
             // 
             // HashFunctionAnalizerForm
             // 
