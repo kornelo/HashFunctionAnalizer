@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA224 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA256 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA384 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA512 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA3224 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA3256 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA3384 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSHA3512 = new System.Windows.Forms.CheckBox();
             this.HashTests = new System.Windows.Forms.TabControl();
             this.tabSpeedTest = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -44,110 +44,111 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.dataGridViewHashCalculate = new System.Windows.Forms.DataGridView();
+            this.generateTextHashBtn = new System.Windows.Forms.Button();
+            this.generateFileHashBtn = new System.Windows.Forms.Button();
             this.hashKeyFileChooseBtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.hashTextFiled = new System.Windows.Forms.TextBox();
+            this.hashFilePath = new System.Windows.Forms.TextBox();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHashCalculate)).BeginInit();
             this.SuspendLayout();
             // 
-            // checkBox2
+            // checkBoxSHA1
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 184);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(57, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "SHA-1";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxSHA1.AutoSize = true;
+            this.checkBoxSHA1.Location = new System.Drawing.Point(12, 184);
+            this.checkBoxSHA1.Name = "checkBoxSHA1";
+            this.checkBoxSHA1.Size = new System.Drawing.Size(57, 17);
+            this.checkBoxSHA1.TabIndex = 1;
+            this.checkBoxSHA1.Text = "SHA-1";
+            this.checkBoxSHA1.UseVisualStyleBackColor = true;
+            this.checkBoxSHA1.CheckedChanged += new System.EventHandler(this.checkBoxSHA1_CheckedChanged);
             // 
-            // checkBox3
+            // checkBoxSHA224
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(12, 207);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(69, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "SHA-224";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxSHA224.AutoSize = true;
+            this.checkBoxSHA224.Location = new System.Drawing.Point(12, 207);
+            this.checkBoxSHA224.Name = "checkBoxSHA224";
+            this.checkBoxSHA224.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxSHA224.TabIndex = 2;
+            this.checkBoxSHA224.Text = "SHA-224";
+            this.checkBoxSHA224.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // checkBoxSHA256
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(12, 230);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(69, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "SHA-256";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBoxSHA256.AutoSize = true;
+            this.checkBoxSHA256.Location = new System.Drawing.Point(12, 230);
+            this.checkBoxSHA256.Name = "checkBoxSHA256";
+            this.checkBoxSHA256.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxSHA256.TabIndex = 3;
+            this.checkBoxSHA256.Text = "SHA-256";
+            this.checkBoxSHA256.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // checkBoxSHA384
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(12, 253);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(69, 17);
-            this.checkBox5.TabIndex = 4;
-            this.checkBox5.Text = "SHA-384";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBoxSHA384.AutoSize = true;
+            this.checkBoxSHA384.Location = new System.Drawing.Point(12, 253);
+            this.checkBoxSHA384.Name = "checkBoxSHA384";
+            this.checkBoxSHA384.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxSHA384.TabIndex = 4;
+            this.checkBoxSHA384.Text = "SHA-384";
+            this.checkBoxSHA384.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // checkBoxSHA512
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(12, 276);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(69, 17);
-            this.checkBox6.TabIndex = 5;
-            this.checkBox6.Text = "SHA-512";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBoxSHA512.AutoSize = true;
+            this.checkBoxSHA512.Location = new System.Drawing.Point(12, 276);
+            this.checkBoxSHA512.Name = "checkBoxSHA512";
+            this.checkBoxSHA512.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxSHA512.TabIndex = 5;
+            this.checkBoxSHA512.Text = "SHA-512";
+            this.checkBoxSHA512.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // checkBoxSHA3224
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(12, 299);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(75, 17);
-            this.checkBox7.TabIndex = 6;
-            this.checkBox7.Text = "SHA3-224";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3224.AutoSize = true;
+            this.checkBoxSHA3224.Location = new System.Drawing.Point(12, 299);
+            this.checkBoxSHA3224.Name = "checkBoxSHA3224";
+            this.checkBoxSHA3224.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSHA3224.TabIndex = 6;
+            this.checkBoxSHA3224.Text = "SHA3-224";
+            this.checkBoxSHA3224.UseVisualStyleBackColor = true;
             // 
-            // checkBox8
+            // checkBoxSHA3256
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(12, 322);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(75, 17);
-            this.checkBox8.TabIndex = 7;
-            this.checkBox8.Text = "SHA3-256";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3256.AutoSize = true;
+            this.checkBoxSHA3256.Location = new System.Drawing.Point(12, 322);
+            this.checkBoxSHA3256.Name = "checkBoxSHA3256";
+            this.checkBoxSHA3256.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSHA3256.TabIndex = 7;
+            this.checkBoxSHA3256.Text = "SHA3-256";
+            this.checkBoxSHA3256.UseVisualStyleBackColor = true;
             // 
-            // checkBox9
+            // checkBoxSHA3384
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(12, 345);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(75, 17);
-            this.checkBox9.TabIndex = 8;
-            this.checkBox9.Text = "SHA3-384";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3384.AutoSize = true;
+            this.checkBoxSHA3384.Location = new System.Drawing.Point(12, 345);
+            this.checkBoxSHA3384.Name = "checkBoxSHA3384";
+            this.checkBoxSHA3384.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSHA3384.TabIndex = 8;
+            this.checkBoxSHA3384.Text = "SHA3-384";
+            this.checkBoxSHA3384.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // checkBoxSHA3512
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(12, 368);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(75, 17);
-            this.checkBox10.TabIndex = 9;
-            this.checkBox10.Text = "SHA3-512";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3512.AutoSize = true;
+            this.checkBoxSHA3512.Location = new System.Drawing.Point(12, 368);
+            this.checkBoxSHA3512.Name = "checkBoxSHA3512";
+            this.checkBoxSHA3512.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSHA3512.TabIndex = 9;
+            this.checkBoxSHA3512.Text = "SHA3-512";
+            this.checkBoxSHA3512.UseVisualStyleBackColor = true;
             // 
             // HashTests
             // 
@@ -207,20 +208,19 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1027, 587);
             this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Avalnache Test";
+            this.tabPage1.Text = "Avalanche Test";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button4);
-            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Controls.Add(this.dataGridViewHashCalculate);
+            this.tabPage3.Controls.Add(this.generateTextHashBtn);
+            this.tabPage3.Controls.Add(this.generateFileHashBtn);
             this.tabPage3.Controls.Add(this.hashKeyFileChooseBtn);
-            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.textBox3);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.hashTextFiled);
+            this.tabPage3.Controls.Add(this.hashFilePath);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -229,23 +229,32 @@
             this.tabPage3.Text = "Hash Calculator";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // dataGridViewHashCalculate
             // 
-            this.button4.Location = new System.Drawing.Point(839, 47);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(136, 23);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Generate (Text Hash)";
-            this.button4.UseVisualStyleBackColor = true;
+            this.dataGridViewHashCalculate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHashCalculate.Location = new System.Drawing.Point(20, 100);
+            this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
+            this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 462);
+            this.dataGridViewHashCalculate.TabIndex = 9;
             // 
-            // button3
+            // generateTextHashBtn
             // 
-            this.button3.Location = new System.Drawing.Point(839, 18);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(136, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Generate (File Hash)";
-            this.button3.UseVisualStyleBackColor = true;
+            this.generateTextHashBtn.Location = new System.Drawing.Point(839, 47);
+            this.generateTextHashBtn.Name = "generateTextHashBtn";
+            this.generateTextHashBtn.Size = new System.Drawing.Size(136, 23);
+            this.generateTextHashBtn.TabIndex = 8;
+            this.generateTextHashBtn.Text = "Generate (Text Hash)";
+            this.generateTextHashBtn.UseVisualStyleBackColor = true;
+            this.generateTextHashBtn.Click += new System.EventHandler(this.generateTextHashBtn_Click);
+            // 
+            // generateFileHashBtn
+            // 
+            this.generateFileHashBtn.Location = new System.Drawing.Point(839, 18);
+            this.generateFileHashBtn.Name = "generateFileHashBtn";
+            this.generateFileHashBtn.Size = new System.Drawing.Size(136, 23);
+            this.generateFileHashBtn.TabIndex = 7;
+            this.generateFileHashBtn.Text = "Generate (File Hash)";
+            this.generateFileHashBtn.UseVisualStyleBackColor = true;
             // 
             // hashKeyFileChooseBtn
             // 
@@ -256,15 +265,6 @@
             this.hashKeyFileChooseBtn.Text = "...";
             this.hashKeyFileChooseBtn.UseVisualStyleBackColor = true;
             this.hashKeyFileChooseBtn.Click += new System.EventHandler(this.hashKeyFileChooseBtn_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Key (ASCII Text) :";
             // 
             // label2
             // 
@@ -284,26 +284,19 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "FILE :";
             // 
-            // textBox3
+            // hashTextFiled
             // 
-            this.textBox3.Location = new System.Drawing.Point(99, 72);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(681, 20);
-            this.textBox3.TabIndex = 2;
+            this.hashTextFiled.Location = new System.Drawing.Point(99, 46);
+            this.hashTextFiled.Name = "hashTextFiled";
+            this.hashTextFiled.Size = new System.Drawing.Size(681, 20);
+            this.hashTextFiled.TabIndex = 1;
             // 
-            // textBox2
+            // hashFilePath
             // 
-            this.textBox2.Location = new System.Drawing.Point(99, 46);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(681, 20);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(99, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(681, 20);
-            this.textBox1.TabIndex = 0;
+            this.hashFilePath.Location = new System.Drawing.Point(99, 20);
+            this.hashFilePath.Name = "hashFilePath";
+            this.hashFilePath.Size = new System.Drawing.Size(681, 20);
+            this.hashFilePath.TabIndex = 0;
             // 
             // HashFunctionAnalizerForm
             // 
@@ -311,15 +304,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1188, 640);
             this.Controls.Add(this.HashTests);
-            this.Controls.Add(this.checkBox10);
-            this.Controls.Add(this.checkBox9);
-            this.Controls.Add(this.checkBox8);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBoxSHA3512);
+            this.Controls.Add(this.checkBoxSHA3384);
+            this.Controls.Add(this.checkBoxSHA3256);
+            this.Controls.Add(this.checkBoxSHA3224);
+            this.Controls.Add(this.checkBoxSHA512);
+            this.Controls.Add(this.checkBoxSHA384);
+            this.Controls.Add(this.checkBoxSHA256);
+            this.Controls.Add(this.checkBoxSHA224);
+            this.Controls.Add(this.checkBoxSHA1);
             this.Name = "HashFunctionAnalizerForm";
             this.Text = "HashFunctionAnalizer";
             this.Load += new System.EventHandler(this.HashFunctionAnalizerForm_Load);
@@ -328,21 +321,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHashCalculate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBoxSHA1;
+        private System.Windows.Forms.CheckBox checkBoxSHA224;
+        private System.Windows.Forms.CheckBox checkBoxSHA256;
+        private System.Windows.Forms.CheckBox checkBoxSHA384;
+        private System.Windows.Forms.CheckBox checkBoxSHA512;
+        private System.Windows.Forms.CheckBox checkBoxSHA3224;
+        private System.Windows.Forms.CheckBox checkBoxSHA3256;
+        private System.Windows.Forms.CheckBox checkBoxSHA3384;
+        private System.Windows.Forms.CheckBox checkBoxSHA3512;
         private System.Windows.Forms.TabControl HashTests;
         private System.Windows.Forms.TabPage tabSpeedTest;
         private System.Windows.Forms.TabPage tabPage2;
@@ -350,15 +344,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox hashTextFiled;
+        private System.Windows.Forms.TextBox hashFilePath;
+        private System.Windows.Forms.Button generateTextHashBtn;
+        private System.Windows.Forms.Button generateFileHashBtn;
         private System.Windows.Forms.Button hashKeyFileChooseBtn;
+        private System.Windows.Forms.DataGridView dataGridViewHashCalculate;
     }
 }
 
