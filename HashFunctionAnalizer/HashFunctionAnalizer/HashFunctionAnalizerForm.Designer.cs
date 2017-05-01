@@ -48,10 +48,8 @@
             this.generateTextHashBtn = new System.Windows.Forms.Button();
             this.generateFileHashBtn = new System.Windows.Forms.Button();
             this.hashKeyFileChooseBtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.hashKeyField = new System.Windows.Forms.TextBox();
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
             this.HashTests.SuspendLayout();
@@ -70,6 +68,7 @@
             this.checkBoxSHA1.TabIndex = 1;
             this.checkBoxSHA1.Text = "SHA-1";
             this.checkBoxSHA1.UseVisualStyleBackColor = true;
+            this.checkBoxSHA1.CheckedChanged += new System.EventHandler(this.checkBoxSHA1_CheckedChanged);
             // 
             // checkBoxSHA224
             // 
@@ -218,10 +217,8 @@
             this.tabPage3.Controls.Add(this.generateTextHashBtn);
             this.tabPage3.Controls.Add(this.generateFileHashBtn);
             this.tabPage3.Controls.Add(this.hashKeyFileChooseBtn);
-            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.hashKeyField);
             this.tabPage3.Controls.Add(this.hashTextFiled);
             this.tabPage3.Controls.Add(this.hashFilePath);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -235,9 +232,9 @@
             // dataGridViewHashCalculate
             // 
             this.dataGridViewHashCalculate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewHashCalculate.Location = new System.Drawing.Point(20, 133);
+            this.dataGridViewHashCalculate.Location = new System.Drawing.Point(20, 100);
             this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
-            this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 429);
+            this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 462);
             this.dataGridViewHashCalculate.TabIndex = 9;
             // 
             // generateTextHashBtn
@@ -269,15 +266,6 @@
             this.hashKeyFileChooseBtn.UseVisualStyleBackColor = true;
             this.hashKeyFileChooseBtn.Click += new System.EventHandler(this.hashKeyFileChooseBtn_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Key (ASCII Text) :";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -295,13 +283,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "FILE :";
-            // 
-            // hashKeyField
-            // 
-            this.hashKeyField.Location = new System.Drawing.Point(99, 72);
-            this.hashKeyField.Name = "hashKeyField";
-            this.hashKeyField.Size = new System.Drawing.Size(681, 20);
-            this.hashKeyField.TabIndex = 2;
             // 
             // hashTextFiled
             // 
@@ -363,10 +344,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox hashKeyField;
         private System.Windows.Forms.TextBox hashTextFiled;
         private System.Windows.Forms.TextBox hashFilePath;
         private System.Windows.Forms.Button generateTextHashBtn;
