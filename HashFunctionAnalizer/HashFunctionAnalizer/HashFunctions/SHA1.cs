@@ -2,22 +2,22 @@
 
 namespace HashFunctionAnalizer.HashFunctions
 {
-    internal class SHA1
+    internal class Sha1
     {
-        private readonly uint[] H = new uint[5];
+        private readonly uint[] _h = new uint[5];
 
-        public SHA1()
+        public Sha1()
         {
             Initialize();
         }
 
         protected virtual void Initialize()
         {
-            H[0] = 0x67452301;
-            H[1] = 0xefcdab89;
-            H[2] = 0x98badcfe;
-            H[3] = 0x10325476;
-            H[4] = 0xc3d2e1f0;
+            _h[0] = 0x67452301;
+            _h[1] = 0xefcdab89;
+            _h[2] = 0x98badcfe;
+            _h[3] = 0x10325476;
+            _h[4] = 0xc3d2e1f0;
         }
 
         public virtual uint[] Hash(byte[] data)
@@ -86,11 +86,11 @@ namespace HashFunctionAnalizer.HashFunctions
             var data = PadInput(aData);
             var resultHash = new uint[80];
 
-            var a = H[0];
-            var b = H[1];
-            var c = H[2];
-            var d = H[3];
-            var e = H[4];
+            var a = _h[0];
+            var b = _h[1];
+            var c = _h[2];
+            var d = _h[3];
+            var e = _h[4];
 
             uint temp;
             int t;
@@ -146,13 +146,13 @@ namespace HashFunctionAnalizer.HashFunctions
                 a = temp;
             }
 
-            H[0] += a;
-            H[1] += b;
-            H[2] += c;
-            H[3] += d;
-            H[4] += e;
+            _h[0] += a;
+            _h[1] += b;
+            _h[2] += c;
+            _h[3] += d;
+            _h[4] += e;
 
-            return H;
+            return _h;
         }
 
         #region Const

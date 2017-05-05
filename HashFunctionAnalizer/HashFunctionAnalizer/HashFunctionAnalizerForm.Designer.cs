@@ -52,6 +52,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -182,6 +183,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -298,6 +300,11 @@
             this.hashFilePath.Size = new System.Drawing.Size(681, 20);
             this.hashFilePath.TabIndex = 0;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
             // HashFunctionAnalizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -352,6 +359,7 @@
         private System.Windows.Forms.Button generateFileHashBtn;
         private System.Windows.Forms.Button hashKeyFileChooseBtn;
         private System.Windows.Forms.DataGridView dataGridViewHashCalculate;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
