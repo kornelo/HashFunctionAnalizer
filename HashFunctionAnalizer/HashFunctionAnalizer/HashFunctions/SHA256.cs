@@ -194,7 +194,7 @@ namespace HashFunctionAnalizer.HashFunctions
             _h[5] = f + _h[5];
             _h[6] = g + _h[6];
             _h[7] = h + _h[7];
-
+            
             return _h;
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,6 +32,11 @@ namespace HashFunctionAnalizer
             Console.WriteLine("Proper HASH SHA256(data): " + UintArrayToString(hash2.Hash(data)));
             Console.WriteLine("Proper HASH SHA256 (word): " + UintArrayToString(hash2.Hash(Encoding.UTF8.GetBytes(word))));
 
+            Sha512 hash3 = new Sha512();
+            Console.WriteLine("Proper HASH SHA512(data): " + UlongArrayToString(hash3.Hash(data)));
+            Console.WriteLine("Proper HASH SHA512 (word): " + UlongArrayToString(hash3.Hash(Encoding.UTF8.GetBytes(word))));
+
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -54,15 +58,18 @@ namespace HashFunctionAnalizer
             return result;
         }
 
-        public static string HexStringFromBytes(byte[] bytes)
+        public static string UlongArrayToString(ulong[] input)
         {
-            var sb = new StringBuilder();
-            foreach (var b in bytes)
+            string result = "";
+            for (int i = 0; i < input.Length; i++)
             {
-                var hex = b.ToString("x2");
-                sb.Append(hex);
+                ulong high = input[i] >> 48;
+                ulong midhigh = (input[i] << 16) >> 48;
+                ulong midlow = (input[i] << 32) >> 48;
+                ulong low = (input[i] << 48) >> 48;
+                result += high.ToString("X4") + midhigh.ToString("X4") + midlow.ToString("X4") + low.ToString("X4");
             }
-            return sb.ToString();
+            return result;
         }
     }
 }
