@@ -36,6 +36,9 @@ namespace HashFunctionAnalizer
             Console.WriteLine("Proper HASH SHA512(data): " + UlongArrayToString(hash3.Hash(data)));
             Console.WriteLine("Proper HASH SHA512 (word): " + UlongArrayToString(hash3.Hash(Encoding.UTF8.GetBytes(word))));
 
+            Sha384 hash4 = new Sha384();
+            Console.WriteLine("Proper HASH SHA384(data): " + UlongArrayToString(hash4.Hash(data)));
+            Console.WriteLine("Proper HASH SHA384 (word): " + UlongArrayToString(hash4.Hash(Encoding.UTF8.GetBytes(word))));
 
 
             Application.EnableVisualStyles();

@@ -55,6 +55,7 @@
     <Compile Include="HashFunctions\SHA1.cs" />
     <Compile Include="HashFunctions\SHA224.cs" />
     <Compile Include="HashFunctions\SHA256.cs" />
+    <Compile Include="HashFunctions\SHA384.cs" />
     <Compile Include="HashFunctions\SHA512.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

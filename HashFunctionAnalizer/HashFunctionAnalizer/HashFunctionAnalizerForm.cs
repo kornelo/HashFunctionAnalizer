@@ -93,12 +93,18 @@ namespace HashFunctionAnalizer
                             var hashSha1 = new Sha1();
                             var hashSha224 = new Sha224();
                             var hashSha256 = new Sha256();
+                            var hashSha512 = new Sha512();
+                            var hashSha384 = new Sha384();
                             Console.WriteLine("FILE HASH SHA1: " +
                                               UintArrayToString(hashSha1.Hash(FileToByteArray(fs.Name))));
                             Console.WriteLine("FILE HASH SHA224: " +
                                               UintArrayToString(hashSha224.Hash(FileToByteArray(fs.Name))));
                             Console.WriteLine("FILE HASH SHA256: " +
                                               UintArrayToString(hashSha256.Hash(FileToByteArray(fs.Name))));
+                            Console.WriteLine("FILE HASH SHA384: " +
+                                              UlongArrayToString(hashSha384.Hash(FileToByteArray(fs.Name))));
+                            Console.WriteLine("FILE HASH SHA512: " +
+                                              UlongArrayToString(hashSha512.Hash(FileToByteArray(fs.Name))));
                             Console.WriteLine($"File Length: {fileStream.Length}");
                             //Close the File Stream
                             fileStream.Close();
@@ -135,6 +141,19 @@ namespace HashFunctionAnalizer
                 var midlow = (input[i] << 16) >> 24;
                 var low = (input[i] << 24) >> 24;
                 result += high.ToString("X2") + midhigh.ToString("X2") + midlow.ToString("X2") + low.ToString("X2");
+            }
+            return result;
+        }
+        public static string UlongArrayToString(ulong[] input)
+        {
+            string result = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                ulong high = input[i] >> 48;
+                ulong midhigh = (input[i] << 16) >> 48;
+                ulong midlow = (input[i] << 32) >> 48;
+                ulong low = (input[i] << 48) >> 48;
+                result += high.ToString("X4") + midhigh.ToString("X4") + midlow.ToString("X4") + low.ToString("X4");
             }
             return result;
         }
