@@ -55,6 +55,10 @@
     <Compile Include="HashFunctions\SHA1.cs" />
     <Compile Include="HashFunctions\SHA224.cs" />
     <Compile Include="HashFunctions\SHA256.cs" />
+    <Compile Include="HashFunctions\SHA3-224.cs" />
+    <Compile Include="HashFunctions\SHA3-256.cs" />
+    <Compile Include="HashFunctions\SHA3-384.cs" />
+    <Compile Include="HashFunctions\SHA3-512.cs" />
     <Compile Include="HashFunctions\SHA384.cs" />
     <Compile Include="HashFunctions\SHA512.cs" />
     <Compile Include="Program.cs" />
