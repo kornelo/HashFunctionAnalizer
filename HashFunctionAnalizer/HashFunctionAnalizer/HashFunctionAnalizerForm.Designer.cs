@@ -80,6 +80,7 @@
             this.checkBoxSHA224.TabIndex = 2;
             this.checkBoxSHA224.Text = "SHA-224";
             this.checkBoxSHA224.UseVisualStyleBackColor = true;
+            this.checkBoxSHA224.CheckedChanged += new System.EventHandler(this.checkBoxSHA224_CheckedChanged);
             // 
             // checkBoxSHA256
             // 
@@ -90,6 +91,7 @@
             this.checkBoxSHA256.TabIndex = 3;
             this.checkBoxSHA256.Text = "SHA-256";
             this.checkBoxSHA256.UseVisualStyleBackColor = true;
+            this.checkBoxSHA256.CheckedChanged += new System.EventHandler(this.checkBoxSHA256_CheckedChanged);
             // 
             // checkBoxSHA384
             // 
@@ -100,6 +102,7 @@
             this.checkBoxSHA384.TabIndex = 4;
             this.checkBoxSHA384.Text = "SHA-384";
             this.checkBoxSHA384.UseVisualStyleBackColor = true;
+            this.checkBoxSHA384.CheckedChanged += new System.EventHandler(this.checkBoxSHA384_CheckedChanged);
             // 
             // checkBoxSHA512
             // 
@@ -110,6 +113,7 @@
             this.checkBoxSHA512.TabIndex = 5;
             this.checkBoxSHA512.Text = "SHA-512";
             this.checkBoxSHA512.UseVisualStyleBackColor = true;
+            this.checkBoxSHA512.CheckedChanged += new System.EventHandler(this.checkBoxSHA512_CheckedChanged);
             // 
             // checkBoxSHA3224
             // 

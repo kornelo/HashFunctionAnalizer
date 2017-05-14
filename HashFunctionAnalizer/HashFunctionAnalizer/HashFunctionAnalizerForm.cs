@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -10,6 +11,8 @@ namespace HashFunctionAnalizer
     public partial class HashFunctionAnalizerForm : Form
     {
         private bool _generateTextHashBtnClicked;
+        private static bool _checkBoxSha1_checked;
+        private static bool _checkBoxSha224_checked;
 
         public HashFunctionAnalizerForm()
         {
@@ -30,21 +33,55 @@ namespace HashFunctionAnalizer
         {
             _generateTextHashBtnClicked = true;
             checkBoxSHA1_CheckedChanged(sender, e);
+            checkBoxSHA224_CheckedChanged(sender,e);
+            checkBoxSHA256_CheckedChanged(sender,e);
+            checkBoxSHA384_CheckedChanged(sender,e);
+            checkBoxSHA512_CheckedChanged(sender,e);
             _generateTextHashBtnClicked = false;
         }
 
-        public static uint[] GetHashSha1(string inputString)
-        {
-            var alghoritm = new Sha1();
-            return inputString != null ? alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)) : null;
-        }
-
-        public static string GetHashString(string inputString)
+        public static string GetHashSha1(string inputString)
         {
             var sb = new StringBuilder();
-            foreach (var b in GetHashSha1(inputString))
+            var alghoritm = new Sha1();
+            foreach (var b in alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)))
                 sb.Append(b.ToString("X2"));
+            return sb.ToString();
+        }
 
+        public static string GetHashSha224(string inputString)
+        {
+            var sb = new StringBuilder();
+            var alghoritm = new Sha224();
+            foreach (var b in alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)))
+                sb.Append(b.ToString("X2"));
+            return sb.ToString();
+        }
+
+        public static string GetHashSha256(string inputString)
+        {
+            var sb = new StringBuilder();
+            var alghoritm = new Sha256();
+            foreach (var b in alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)))
+                sb.Append(b.ToString("X2"));
+            return sb.ToString();
+        }
+
+        public static string GetHashSha384(string inputString)
+        {
+            var sb = new StringBuilder();
+            var alghoritm = new Sha384();
+            foreach (var b in alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)))
+                sb.Append(b.ToString("X2"));
+            return sb.ToString();
+        }
+
+        public static string GetHashSha512(string inputString)
+        {
+            var sb = new StringBuilder();
+            var alghoritm = new Sha512();
+            foreach (var b in alghoritm.Hash(Encoding.UTF8.GetBytes(inputString)))
+                sb.Append(b.ToString("X2"));
             return sb.ToString();
         }
 
@@ -52,15 +89,44 @@ namespace HashFunctionAnalizer
         {
             if (checkBoxSHA1.Checked && _generateTextHashBtnClicked)
             {
-                if (hashTextFiled.Text != "")
-                {
-                    var hashField = hashTextFiled.Text;
-                    dataGridViewHashCalculate.Rows.Add("SHA1", GetHashString(hashField));
-                }
-                else
-                {
-                    hashTextFiled.Text = "You must write something here!!!";
-                }
+                var hashField = hashTextFiled.Text;
+                dataGridViewHashCalculate.Rows.Add("SHA1", GetHashSha1(hashField));
+            }
+        }
+
+        private void checkBoxSHA224_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSHA224.Checked && _generateTextHashBtnClicked)
+            {
+                var hashField = hashTextFiled.Text;
+                dataGridViewHashCalculate.Rows.Add("SHA224", GetHashSha224(hashField));
+            }
+        }
+
+        private void checkBoxSHA256_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSHA256.Checked && _generateTextHashBtnClicked)
+            {
+                var hashField = hashTextFiled.Text;
+                dataGridViewHashCalculate.Rows.Add("SHA256", GetHashSha256(hashField));
+            }
+        }
+
+        private void checkBoxSHA384_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSHA384.Checked && _generateTextHashBtnClicked)
+            {
+                var hashField = hashTextFiled.Text;
+                dataGridViewHashCalculate.Rows.Add("SHA384", GetHashSha384(hashField));
+            }
+        }
+
+        private void checkBoxSHA512_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSHA512.Checked && _generateTextHashBtnClicked)
+            {
+                var hashField = hashTextFiled.Text;
+                dataGridViewHashCalculate.Rows.Add("SHA512", GetHashSha512(hashField));
             }
         }
 
@@ -70,6 +136,12 @@ namespace HashFunctionAnalizer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var stopwatchSHA1 = new Stopwatch();
+            var stopwatchSHA224 = new Stopwatch();
+            var stopwatchSHA256 = new Stopwatch();
+            var stopwatchSHA384 = new Stopwatch();
+            var stopwatchSHA512 = new Stopwatch();
+
             Stream fileStream = null;
             var openFileDialog = new OpenFileDialog();
 
@@ -95,17 +167,42 @@ namespace HashFunctionAnalizer
                             var hashSha256 = new Sha256();
                             var hashSha512 = new Sha512();
                             var hashSha384 = new Sha384();
+
+                            stopwatchSHA1.Start();
                             Console.WriteLine("FILE HASH SHA1: " +
                                               UintArrayToString(hashSha1.Hash(FileToByteArray(fs.Name))));
+                            stopwatchSHA1.Stop();
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA1.Elapsed} s");
+
+                            stopwatchSHA224.Start();
                             Console.WriteLine("FILE HASH SHA224: " +
                                               UintArrayToString(hashSha224.Hash(FileToByteArray(fs.Name))));
+                            stopwatchSHA224.Stop();
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA224.Elapsed} s");
+
+                            stopwatchSHA256.Start();
                             Console.WriteLine("FILE HASH SHA256: " +
                                               UintArrayToString(hashSha256.Hash(FileToByteArray(fs.Name))));
+                            stopwatchSHA256.Stop();
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA256.Elapsed} s");
+
+                            stopwatchSHA384.Start();
                             Console.WriteLine("FILE HASH SHA384: " +
                                               UlongArrayToString(hashSha384.Hash(FileToByteArray(fs.Name))));
+                            stopwatchSHA384.Stop();
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA384.Elapsed} s");
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA384.ElapsedTicks} ms");
+
+
+                            stopwatchSHA512.Start();
                             Console.WriteLine("FILE HASH SHA512: " +
                                               UlongArrayToString(hashSha512.Hash(FileToByteArray(fs.Name))));
+                            stopwatchSHA512.Stop();
+                            Console.WriteLine($"Data hashed in: {stopwatchSHA512.Elapsed} s");
+
+                            //Write length of file
                             Console.WriteLine($"File Length: {fileStream.Length}");
+                            
                             //Close the File Stream
                             fileStream.Close();
                         }
@@ -157,5 +254,7 @@ namespace HashFunctionAnalizer
             }
             return result;
         }
+
+
     }
 }

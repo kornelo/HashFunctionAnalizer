@@ -29,6 +29,7 @@ namespace HashFunctionAnalizer.HashFunctions
         private uint[] PadInput(byte[] input)
         {
             var bytesToPad = Convert.ToUInt32((64 - (input.Length%64))%64);
+            if (input.Length == 0) bytesToPad = 64;
             var paddedInput = new byte[input.Length + bytesToPad];
             if (bytesToPad == 0)
             {
@@ -95,6 +96,7 @@ namespace HashFunctionAnalizer.HashFunctions
             uint temp;
             int t;
 
+            
             for (t = 0; t < 16; t++)
             {
                 resultHash[t] = data[t];

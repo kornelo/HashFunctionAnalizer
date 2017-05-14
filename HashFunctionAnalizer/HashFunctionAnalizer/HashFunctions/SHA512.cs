@@ -61,7 +61,7 @@ namespace HashFunctionAnalizer.HashFunctions
         private ulong[] PadInput(byte[] input)
         {
             var bytesToPad = Convert.ToUInt32((128 - (input.Length%128))%128);
-
+            if (input.Length == 0) bytesToPad = 128;
             var paddedInput = new byte[input.Length + bytesToPad];
 
             if (bytesToPad == 0)

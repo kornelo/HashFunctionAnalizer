@@ -48,7 +48,7 @@ namespace HashFunctionAnalizer.HashFunctions
         private uint[] PadInput(byte[] input)
         {
             var bytesToPad = Convert.ToUInt32((64 - (input.Length%64))%64);
-
+            if (input.Length == 0) bytesToPad = 64;
             var paddedInput = new byte[input.Length + bytesToPad];
 
             if (bytesToPad == 0)
@@ -194,7 +194,12 @@ namespace HashFunctionAnalizer.HashFunctions
             _h[6] = g + _h[6];
             _h[7] = h + _h[7];
 
-            return _h;
+            uint[] result = new uint[7];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = _h[i];
+            }
+            return result;
         }
     }
 }
