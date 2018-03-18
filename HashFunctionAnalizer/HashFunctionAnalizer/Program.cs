@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 using HashFunctionAnalizer.HashFunctions;
 using System.Text;
@@ -17,29 +14,47 @@ namespace HashFunctionAnalizer
         [STAThread]
         static void Main()
         {
-            byte[] data = { 0, 0, 5, 1 };
+            var stopwatch = new Stopwatch();
+
+
+            byte[] data = { 0, 0, 5, 1, 1, 2 };
             string word = "abc";
+
+
             Sha1 hash = new Sha1();
+            stopwatch.Start();
             Console.WriteLine("Proper HASH SHA1(data): " + UintArrayToString(hash.Hash(data)));
+            stopwatch.Stop();
+            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+            stopwatch.Reset();
+            stopwatch.Start();
             Console.WriteLine("Proper HASH SHA1 (word): " + UintArrayToString(hash.Hash(Encoding.ASCII.GetBytes(word))));
+            stopwatch.Stop();
+            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+            Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
+            Console.WriteLine($"Speed of hashing: {Encoding.ASCII.GetBytes(word).Length * 1000000 / stopwatch.Elapsed.Ticks} bps");
 
-            
-            Sha224 hash1 = new Sha224();
-            Console.WriteLine("Proper HASH SHA224(data): " + UintArrayToString(hash1.Hash(data)));
-            Console.WriteLine("Proper HASH SHA224 (word): " + UintArrayToString(hash1.Hash(Encoding.UTF8.GetBytes(word))));
 
-            Sha256 hash2 = new Sha256();
-            Console.WriteLine("Proper HASH SHA256(data): " + UintArrayToString(hash2.Hash(data)));
-            Console.WriteLine("Proper HASH SHA256 (word): " + UintArrayToString(hash2.Hash(Encoding.UTF8.GetBytes(word))));
+            SHA3Managed hash5 = new SHA3Managed(512);
+            //stopwatch.Start();
+            //Console.WriteLine("Proper HASH SHA3-512(data): " + ToHexString(hash5.ComputeHash(data)));
+            //stopwatch.Stop();
+            //Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+            stopwatch.Reset();
+            stopwatch.Start();
+            Console.WriteLine("Proper HASH SHA3-512 (word): " + ByteArrayToString(hash5.ComputeHash(Encoding.UTF8.GetBytes(word))));
+            stopwatch.Stop();
+            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+            Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
+            Console.WriteLine("Speed of hashing: {0:f2} bps", (double)(Encoding.ASCII.GetBytes(word).Length / 1024) * 1000L * 1000L * 10L / (stopwatch.ElapsedTicks));
 
-            Sha512 hash3 = new Sha512();
-            Console.WriteLine("Proper HASH SHA512(data): " + UlongArrayToString(hash3.Hash(data)));
-            Console.WriteLine("Proper HASH SHA512 (word): " + UlongArrayToString(hash3.Hash(Encoding.UTF8.GetBytes(word))));
+            SHA2Managed hash6 = new SHA2Managed(512);
+            stopwatch.Reset();
+            Console.WriteLine("Proper HASH SHA-512(word): " + ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word))));
 
-            Sha384 hash4 = new Sha384();
-            Console.WriteLine("Proper HASH SHA384(data): " + UlongArrayToString(hash4.Hash(data)));
-            Console.WriteLine("Proper HASH SHA384 (word): " + UlongArrayToString(hash4.Hash(Encoding.UTF8.GetBytes(word))));
-
+            SHA2Managed hash7 = new SHA2Managed(224);
+            stopwatch.Reset();
+            Console.WriteLine("Proper HASH SHA-224(word): " + ByteArrayToString(hash7.ComputeHash(Encoding.UTF8.GetBytes(word))));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -61,18 +76,21 @@ namespace HashFunctionAnalizer
             return result;
         }
 
-        public static string UlongArrayToString(ulong[] input)
+        public static string ByteArrayToString(byte[] ba)
         {
-            string result = "";
-            for (int i = 0; i < input.Length; i++)
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+
+            int length;
+
+            if (ba.Length == 64) length = 8;
+            else length = 4;
+
+            for (var x =0; x<ba.Length; x+=length)
+            for (var i = length -1; i >= 0; i--)
             {
-                ulong high = input[i] >> 48;
-                ulong midhigh = (input[i] << 16) >> 48;
-                ulong midlow = (input[i] << 32) >> 48;
-                ulong low = (input[i] << 48) >> 48;
-                result += high.ToString("X4") + midhigh.ToString("X4") + midlow.ToString("X4") + low.ToString("X4");
+                    hex.AppendFormat("{0:X2}", ba[x + i]); 
             }
-            return result;
+            return hex.ToString();
         }
     }
 }
