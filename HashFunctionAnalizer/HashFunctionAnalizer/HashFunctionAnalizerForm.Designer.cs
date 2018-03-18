@@ -39,7 +39,7 @@
             this.checkBoxSHA3512 = new System.Windows.Forms.CheckBox();
             this.HashTests = new System.Windows.Forms.TabControl();
             this.tabSpeedTest = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.speedTestBtn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -80,6 +80,7 @@
             this.checkBoxSHA224.TabIndex = 2;
             this.checkBoxSHA224.Text = "SHA-224";
             this.checkBoxSHA224.UseVisualStyleBackColor = true;
+            this.checkBoxSHA224.CheckedChanged += new System.EventHandler(this.checkBoxSHA224_CheckedChanged);
             // 
             // checkBoxSHA256
             // 
@@ -90,6 +91,7 @@
             this.checkBoxSHA256.TabIndex = 3;
             this.checkBoxSHA256.Text = "SHA-256";
             this.checkBoxSHA256.UseVisualStyleBackColor = true;
+            this.checkBoxSHA256.CheckedChanged += new System.EventHandler(this.checkBoxSHA256_CheckedChanged);
             // 
             // checkBoxSHA384
             // 
@@ -100,6 +102,7 @@
             this.checkBoxSHA384.TabIndex = 4;
             this.checkBoxSHA384.Text = "SHA-384";
             this.checkBoxSHA384.UseVisualStyleBackColor = true;
+            this.checkBoxSHA384.CheckedChanged += new System.EventHandler(this.checkBoxSHA384_CheckedChanged);
             // 
             // checkBoxSHA512
             // 
@@ -110,6 +113,7 @@
             this.checkBoxSHA512.TabIndex = 5;
             this.checkBoxSHA512.Text = "SHA-512";
             this.checkBoxSHA512.UseVisualStyleBackColor = true;
+            this.checkBoxSHA512.CheckedChanged += new System.EventHandler(this.checkBoxSHA512_CheckedChanged);
             // 
             // checkBoxSHA3224
             // 
@@ -150,6 +154,7 @@
             this.checkBoxSHA3512.TabIndex = 9;
             this.checkBoxSHA3512.Text = "SHA3-512";
             this.checkBoxSHA3512.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3512.CheckedChanged += new System.EventHandler(this.checkBoxSHA3512_CheckedChanged);
             // 
             // HashTests
             // 
@@ -165,7 +170,7 @@
             // 
             // tabSpeedTest
             // 
-            this.tabSpeedTest.Controls.Add(this.button1);
+            this.tabSpeedTest.Controls.Add(this.speedTestBtn);
             this.tabSpeedTest.Controls.Add(this.dataGridView1);
             this.tabSpeedTest.Location = new System.Drawing.Point(4, 22);
             this.tabSpeedTest.Name = "tabSpeedTest";
@@ -175,15 +180,15 @@
             this.tabSpeedTest.Text = "SpeedTest [MB/s]";
             this.tabSpeedTest.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // speedTestBtn
             // 
-            this.button1.Location = new System.Drawing.Point(933, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.speedTestBtn.Location = new System.Drawing.Point(933, 17);
+            this.speedTestBtn.Name = "speedTestBtn";
+            this.speedTestBtn.Size = new System.Drawing.Size(88, 34);
+            this.speedTestBtn.TabIndex = 1;
+            this.speedTestBtn.Text = "Start";
+            this.speedTestBtn.UseVisualStyleBackColor = true;
+            this.speedTestBtn.Click += new System.EventHandler(this.speedTestBtn_Click);
             // 
             // dataGridView1
             // 
@@ -238,6 +243,7 @@
             this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
             this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 462);
             this.dataGridViewHashCalculate.TabIndex = 9;
+            this.dataGridViewHashCalculate.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHashCalculate_CellContentClick);
             // 
             // generateTextHashBtn
             // 
@@ -257,6 +263,7 @@
             this.generateFileHashBtn.TabIndex = 7;
             this.generateFileHashBtn.Text = "Generate (File Hash)";
             this.generateFileHashBtn.UseVisualStyleBackColor = true;
+            this.generateFileHashBtn.Click += new System.EventHandler(this.generateFileHashBtn_Click);
             // 
             // hashKeyFileChooseBtn
             // 
@@ -348,7 +355,7 @@
         private System.Windows.Forms.TabPage tabSpeedTest;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button speedTestBtn;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label2;
