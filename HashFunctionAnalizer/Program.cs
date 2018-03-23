@@ -33,12 +33,12 @@ namespace HashFunctionAnalizer
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
             Console.WriteLine($"Speed of hashing: {Encoding.ASCII.GetBytes(word).Length * 1000000 / stopwatch.Elapsed.Ticks} bps");
+            
 
-
-            SHA3Managed hash5 = new SHA3Managed(512);
+            SHA3Managed hash5 = new SHA3Managed(256);
             stopwatch.Reset();
             stopwatch.Start();
-            Console.WriteLine("Proper HASH SHA3-512 (word): " + ByteArrayToString(hash5.ComputeHash(Encoding.UTF8.GetBytes(word))));
+            Console.WriteLine("Proper HASH SHA3-512 (word): " + ByteArrayToString(hash5.ComputeHash(Encoding.UTF8.GetBytes(word)),hash5));
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
@@ -46,11 +46,11 @@ namespace HashFunctionAnalizer
 
             SHA2Managed hash6 = new SHA2Managed(512);
             stopwatch.Reset();
-            Console.WriteLine("Proper HASH SHA-512(word): " + ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word))));
+            Console.WriteLine("Proper HASH SHA-512(word): " + ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word)),hash6));
 
             SHA2Managed hash7 = new SHA2Managed(224);
             stopwatch.Reset();
-            Console.WriteLine("Proper HASH SHA-224(word): " + ByteArrayToString(hash7.ComputeHash(Encoding.UTF8.GetBytes(word))));
+            Console.WriteLine("Proper HASH SHA-224(word): " + ByteArrayToString(hash7.ComputeHash(Encoding.UTF8.GetBytes(word)),hash7));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -72,13 +72,13 @@ namespace HashFunctionAnalizer
             return result;
         }
 
-        public static string ByteArrayToString(byte[] ba)
+        public static string ByteArrayToString(byte[] ba, object hash)
         {
             StringBuilder hex = new StringBuilder(ba.Length * 2);
 
             int length;
 
-            if (ba.Length == 64) length = 8;
+            if (hash is SHA3Managed) length = 1;
             else length = 4;
 
             for (var x =0; x<ba.Length; x+=length)

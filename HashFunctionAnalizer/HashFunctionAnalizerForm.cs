@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using HashFunctionAnalizer.HashFunctions;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace HashFunctionAnalizer
 {
@@ -26,6 +27,7 @@ namespace HashFunctionAnalizer
 
             dataGridViewSpeedTest.Columns.Add("Function", "Function");
             dataGridViewSpeedTest.Columns.Add("Speed", "Speed Mb/s");
+            
         }
 
         private void hashKeyFileChooseBtn_Click(object sender, EventArgs e)
@@ -172,23 +174,11 @@ namespace HashFunctionAnalizer
             }
             return result;
         }
-        public static string UlongArrayToString(ulong[] input)
-        {
-            string result = "";
-            for (int i = 0; i < input.Length; i++)
-            {
-                ulong high = input[i] >> 48;
-                ulong midhigh = (input[i] << 16) >> 48;
-                ulong midlow = (input[i] << 32) >> 48;
-                ulong low = (input[i] << 48) >> 48;
-                result += high.ToString("X4") + midhigh.ToString("X4") + midlow.ToString("X4") + low.ToString("X4");
-            }
-            return result;
-        }
+
 
         private void generateFileHashBtn_Click(object sender, EventArgs e)
         {
-            var stopwatch = new Stopwatch();
+
 
             Stream fileStream = null;
             var openFileDialog = new OpenFileDialog();
@@ -212,55 +202,80 @@ namespace HashFunctionAnalizer
 
                            
                             var hashSha1 = new Sha1();
-                            var hashSha224 = new SHA2Managed(224);
-                            var hashSha256 = new SHA2Managed(256);
-                            var hashSha384 = new SHA2Managed(384);
-                            var hashSha512 = new SHA2Managed(512);
+                            var hashSha2 = new SHA2Managed();
                             var hashSha3 = new SHA3Managed();
 
-                            stopwatch.Start();
+                            //SHA1
+                            DateTime begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA1: " +
                                               UintArrayToString(hashSha1.Hash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                            TimeSpan time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length/(1024*1024)} hashed in: {time.TotalSeconds} s. {fs.Length/(1024*1024)/time.TotalSeconds} Mb/s");
 
-                            stopwatch.Reset();
-                            stopwatch.Start();
+                            //SHA224
+                            hashSha2 = new SHA2Managed(224);
+                            begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA224: " +
-                                              ByteArrayToString(hashSha224.ComputeHash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                                              ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
 
-                            stopwatch.Reset();
-                            stopwatch.Start();
+                            //SHA256
+                            hashSha2 = new SHA2Managed(256);
+                            begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA256: " +
-                                              ByteArrayToString(hashSha256.ComputeHash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                                              ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
 
-                            stopwatch.Reset();
-                            stopwatch.Start();
+                            //SHA84
+                            hashSha2 = new SHA2Managed(384);
+                            begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA384: " +
-                                              ByteArrayToString(hashSha384.ComputeHash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                                              ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
 
-                            stopwatch.Reset();
-                            stopwatch.Start();
+                            //SHA512
+                            hashSha2 = new SHA2Managed(512);
+                            begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA512: " +
-                                              ByteArrayToString(hashSha512.ComputeHash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                                              ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
 
-                            stopwatch.Reset();
-                            stopwatch.Start();
+                            //SHA3-224
+                            hashSha3 = new SHA3Managed(224);
+                            begin = DateTime.UtcNow;
+                            Console.WriteLine("FILE HASH SHA3-224: " +
+                                              ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                            //SHA3-256
+                            hashSha3 = new SHA3Managed(256);
+                            begin = DateTime.UtcNow;
+                            Console.WriteLine("FILE HASH SHA3-256: " +
+                                              ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                            //SHA3-384
+                            hashSha3 = new SHA3Managed(384);
+                            begin = DateTime.UtcNow;
+                            Console.WriteLine("FILE HASH SHA3-385: " +
+                                              ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                            //SHA3-512
+                            hashSha3 = new SHA3Managed(512);
+                            begin = DateTime.UtcNow;
                             Console.WriteLine("FILE HASH SHA3-512: " +
                                               ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
-                            stopwatch.Stop();
-                            Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
+                            time = DateTime.UtcNow - begin;
+                            Console.WriteLine($"Data {fs.Length / (1024 * 1024)}:X2 hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
 
-                            //Write length of file
-                            Console.WriteLine($"File Length: {fileStream.Length}");
 
                             //Close the File Stream
                             fileStream.Close();
@@ -288,13 +303,15 @@ namespace HashFunctionAnalizer
                 someData[i] = Convert.ToByte(randomizeValue());
 
             var times = 100;
-            var stopWatch = new Stopwatch();
+            DateTime begin;
+            TimeSpan time;
+            Stopwatch stopWatch = new Stopwatch();
             double result =0.0;
             int collumnCounter;
             var rowIndex = dataGridViewSpeedTest.Rows.Count;
 
             if(dataGridViewSpeedTest.ColumnCount <= 2)
-            for (int i = 0; i < times; i++)
+            for (int i = 0; i <= times; i++)
                 if (i % 5 == 0)
                     dataGridViewSpeedTest.Columns.Add($"{i} Mb", $"{i} Mb");
            
@@ -304,129 +321,160 @@ namespace HashFunctionAnalizer
                 case "SHA1":
                     var alghorithmSha1 = new Sha1();
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
-                    for (int i = 0; i < times; i++)
+                    hashName += $"({ begin})";
+                        
+                    for (int i = 0; i <= times; i++)
                     {
                         alghorithmSha1.Hash(someData);
 
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
-                            dataGridViewSpeedTest.Rows[rowIndex-1].Cells[collumnCounter++].Value = $"{result:f2}";
+                           dataGridViewSpeedTest.Rows[rowIndex-1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex -1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex -1].Cells[1].Value = $"{result:f2}";
+                    
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length*times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 case "SHA224":
                     var alghorithmSha224 = new SHA2Managed(224);
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
-                    for (int i = 0; i < times; i++)
+                    hashName += $"({ begin})";
+
+                    for (int i = 0; i <= times; i++)
                     {
                         alghorithmSha224.ComputeHash(someData);
 
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
-                            dataGridViewSpeedTest.Rows[rowIndex-1].Cells[collumnCounter++].Value = $"{result:f2}";
+                            dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
+
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 case "SHA256":
                     var alghorithmSha256 = new SHA2Managed(256);
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
-                    for (int i = 0; i < times; i++)
+                    hashName += $"({ begin})";
+
+                    for (int i = 0; i <= times; i++)
                     {
                         alghorithmSha256.ComputeHash(someData);
+
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
                             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
+
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 case "SHA384":
                     var alghorithmSha384 = new SHA2Managed(384);
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
+                    hashName += $"({ begin})";
                     for (int i = 0; i < times; i++)
                     {
                         alghorithmSha384.ComputeHash(someData);
+
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
                             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
+
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 case "SHA512":
                     var alghorithmSha512 = new SHA2Managed(512);
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
+                    hashName += $"({ begin})";
                     for (int i = 0; i < times; i++)
                     {
                         alghorithmSha512.ComputeHash(someData);
+
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
                             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
+
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 case "SHA3-512":
                     var alghorithmSha3_512 = new SHA3Managed();
                     collumnCounter = 2;
-                    stopWatch.Reset();
-                    stopWatch.Start();
+                    begin = DateTime.UtcNow;
                     dataGridViewSpeedTest.Rows.Add();
+                    hashName += $"({ begin})";
                     for (int i = 0; i < times; i++)
                     {
                         alghorithmSha3_512.ComputeHash(someData);
+
+                        time = DateTime.UtcNow - begin;
+                        result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+
                         if (i % 5 == 0)
                         {
-                            double secondsy = (double)stopWatch.ElapsedMilliseconds / 1000;
-                            result = (double)(i / secondsy);
                             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                         }
+                        ChartUpdate(hashName, i, result);
                     }
-                    stopWatch.Stop();
+                    time = DateTime.UtcNow - begin;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
+
+                    Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * times / (1024 * 1024), time.TotalSeconds);
                     rowIndex++;
                     break;
                 default:
@@ -434,12 +482,6 @@ namespace HashFunctionAnalizer
                     break;
             }
 
-            
-            double seconds = (double)stopWatch.ElapsedMilliseconds/1000;
-
-            Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s",hashName, times, seconds);
-
-            result =(double)(times / seconds);
         }
 
         private void speedTestBtn_Click(object sender, EventArgs e)
@@ -477,5 +519,16 @@ namespace HashFunctionAnalizer
             return hex.ToString();
         }
 
+        public void ChartUpdate(string hashName, double x, double y)
+        {
+            var series = new Series(hashName);
+            series.ChartType = SeriesChartType.Spline;
+
+            if (chartOfSpeed.Series.FindByName(hashName) != null)
+                chartOfSpeed.Series[chartOfSpeed.Series.IndexOf(hashName)].Points.AddXY(x, y);
+            else
+             chartOfSpeed.Series.Add(series);
+                
+        }
     }
 }

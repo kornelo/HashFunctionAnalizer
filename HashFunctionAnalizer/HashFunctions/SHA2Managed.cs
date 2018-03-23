@@ -129,17 +129,8 @@ namespace HashFunctionAnalizer.HashFunctions
         {
             uint bytesToPad;
 
-            if (HashSizeValue == 224 || HashSizeValue == 256)
-            {
-                bytesToPad = Convert.ToUInt32((64 - (input.Length % 64)) % 64);
-                if (input.Length == 0) bytesToPad = 64;
-
-            }
-            else
-            {
                 bytesToPad = Convert.ToUInt32((128 - (input.Length % 128)) % 128);
                 if (input.Length == 0) bytesToPad = 128;
-            }
 
             var paddedInput = new byte[input.Length + bytesToPad];
 
@@ -160,43 +151,12 @@ namespace HashFunctionAnalizer.HashFunctions
                     paddedInput[input.Length + i] = 0;
                 }
 
-                if (HashSizeValue == 224 || HashSizeValue == 256)
-                {
-                    paddedInput[paddedInput.Length - 2] = GetByte32((64 - bytesToPad) * 8, 1);
-                    paddedInput[paddedInput.Length - 1] = GetByte32((64 - bytesToPad) * 8, 0);
-                }
-                else
-                {
                     paddedInput[paddedInput.Length - 2] = GetByte64((128 - bytesToPad) * 8, 1);
                     paddedInput[paddedInput.Length - 1] = GetByte64((128 - bytesToPad) * 8, 0);
-                }
             }
 
             ulong[] result;
 
-            //Input is padded to 512bit size blocks
-            if (HashSizeValue == 224 || HashSizeValue == 256)
-            {
-                result = new ulong[paddedInput.Length / 4];
-                for (var i = 0; i < paddedInput.Length; i += 4)
-                {
-                    ulong temp = 0;
-                    temp += paddedInput[i];
-                    temp = temp << 8;
-
-                    temp += paddedInput[i + 1];
-                    temp = temp << 8;
-
-                    temp += paddedInput[i + 2];
-                    temp = temp << 8;
-
-                    temp += paddedInput[i + 3];
-
-                    result[i / 4] = temp;
-                }
-            }
-            else
-            {
                 //Input is padded to 1024bit size blocks
 
                 result = new ulong[paddedInput.Length / 8];
@@ -226,7 +186,6 @@ namespace HashFunctionAnalizer.HashFunctions
 
                     temp += paddedInput[i + 7];
                     result[i / 8] = temp;
-                }
             }
             return result;
         }

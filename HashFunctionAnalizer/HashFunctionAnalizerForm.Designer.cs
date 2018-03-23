@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.checkBoxSHA1 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA224 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA256 = new System.Windows.Forms.CheckBox();
@@ -39,6 +41,7 @@
             this.checkBoxSHA3512 = new System.Windows.Forms.CheckBox();
             this.HashTests = new System.Windows.Forms.TabControl();
             this.tabSpeedTest = new System.Windows.Forms.TabPage();
+            this.chartOfSpeed = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.speedTestBtn = new System.Windows.Forms.Button();
             this.dataGridViewSpeedTest = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -55,6 +58,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartOfSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpeedTest)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHashCalculate)).BeginInit();
@@ -170,6 +174,7 @@
             // 
             // tabSpeedTest
             // 
+            this.tabSpeedTest.Controls.Add(this.chartOfSpeed);
             this.tabSpeedTest.Controls.Add(this.speedTestBtn);
             this.tabSpeedTest.Controls.Add(this.dataGridViewSpeedTest);
             this.tabSpeedTest.Location = new System.Drawing.Point(4, 22);
@@ -179,6 +184,18 @@
             this.tabSpeedTest.TabIndex = 0;
             this.tabSpeedTest.Text = "SpeedTest [MB/s]";
             this.tabSpeedTest.UseVisualStyleBackColor = true;
+            // 
+            // chartOfSpeed
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartOfSpeed.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartOfSpeed.Legends.Add(legend1);
+            this.chartOfSpeed.Location = new System.Drawing.Point(0, 289);
+            this.chartOfSpeed.Name = "chartOfSpeed";
+            this.chartOfSpeed.Size = new System.Drawing.Size(926, 300);
+            this.chartOfSpeed.TabIndex = 2;
+            this.chartOfSpeed.Text = "chartOfSpeed";
             // 
             // speedTestBtn
             // 
@@ -195,7 +212,7 @@
             this.dataGridViewSpeedTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSpeedTest.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewSpeedTest.Name = "dataGridViewSpeedTest";
-            this.dataGridViewSpeedTest.Size = new System.Drawing.Size(926, 587);
+            this.dataGridViewSpeedTest.Size = new System.Drawing.Size(926, 282);
             this.dataGridViewSpeedTest.TabIndex = 0;
             // 
             // tabPage2
@@ -332,6 +349,7 @@
             this.Load += new System.EventHandler(this.HashFunctionAnalizerForm_Load);
             this.HashTests.ResumeLayout(false);
             this.tabSpeedTest.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartOfSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpeedTest)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -367,6 +385,7 @@
         private System.Windows.Forms.Button hashKeyFileChooseBtn;
         private System.Windows.Forms.DataGridView dataGridViewHashCalculate;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartOfSpeed;
     }
 }
 
