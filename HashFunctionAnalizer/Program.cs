@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using HashFunctionAnalizer.HashFunctions;
 using System.Text;
+using System.Security.Cryptography;
+
 
 namespace HashFunctionAnalizer
 {
@@ -20,20 +22,19 @@ namespace HashFunctionAnalizer
             byte[] data = { 0, 0, 5, 1, 1, 2 };
             string word = "abc";
 
-
-            Sha1 hash = new Sha1();
+            HashAlgorithm hash = new HashFunctions.SHA1();
             stopwatch.Start();
-            Console.WriteLine("Proper HASH SHA1(data): " + UintArrayToString(hash.Hash(data)));
+            Console.WriteLine("Proper HASH SHA1(data): " + ByteArrayToString(hash.ComputeHash(data),hash));
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             stopwatch.Reset();
             stopwatch.Start();
-            Console.WriteLine("Proper HASH SHA1 (word): " + UintArrayToString(hash.Hash(Encoding.ASCII.GetBytes(word))));
+            Console.WriteLine("Proper HASH SHA1 (word): " + ByteArrayToString(hash.ComputeHash(Encoding.ASCII.GetBytes(word)),hash));
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
             Console.WriteLine($"Speed of hashing: {Encoding.ASCII.GetBytes(word).Length * 1000000 / stopwatch.Elapsed.Ticks} bps");
-            
+
 
             SHA3Managed hash5 = new SHA3Managed(256);
             stopwatch.Reset();
@@ -78,8 +79,10 @@ namespace HashFunctionAnalizer
 
             int length;
 
-            if (hash is SHA3Managed) length = 1;
-            else length = 4;
+            if (ba.Length > 32)
+                length = 8;
+            else
+                length = 4;
 
             for (var x =0; x<ba.Length; x+=length)
             for (var i = length -1; i >= 0; i--)

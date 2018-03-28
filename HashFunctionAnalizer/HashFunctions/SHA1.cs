@@ -1,17 +1,15 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace HashFunctionAnalizer.HashFunctions
 {
-    internal class Sha1
+    internal class SHA1: HashAlgorithm
     {
-        private readonly uint[] _h = new uint[5];
+        internal readonly uint[] _h = new uint[5];
+        internal byte[] buffer;
+        internal int buffLength;
 
-        public Sha1()
-        {
-            Initialize();
-        }
-
-        protected virtual void Initialize()
+        public SHA1()
         {
             _h[0] = 0x67452301;
             _h[1] = 0xefcdab89;
@@ -20,11 +18,19 @@ namespace HashFunctionAnalizer.HashFunctions
             _h[4] = 0xc3d2e1f0;
         }
 
-        public virtual uint[] Hash(byte[] data)
+        public override void Initialize()
         {
-            Initialize();
-            return TransformBlock(data);
+            buffer = null;
+            buffLength = 0;
+            HashValue = null;
+
+            _h[0] = 0x67452301;
+            _h[1] = 0xefcdab89;
+            _h[2] = 0x98badcfe;
+            _h[3] = 0x10325476;
+            _h[4] = 0xc3d2e1f0;
         }
+
 
         private uint[] PadInput(byte[] input)
         {
@@ -155,6 +161,57 @@ namespace HashFunctionAnalizer.HashFunctions
             _h[4] += e;
 
             return _h;
+        }
+
+
+        protected override void HashCore(byte[] array, int ibStart, int cbSize)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array");
+            if (ibStart < 0)
+                throw new ArgumentOutOfRangeException("ibStart");
+            if (cbSize > array.Length)
+                throw new ArgumentOutOfRangeException("cbSize");
+            if (ibStart + cbSize > array.Length)
+                throw new ArgumentOutOfRangeException("ibStart or cbSize");
+            if (buffer == null)
+                buffer = new byte[array.Length];
+            AddToBuffer(array, ref ibStart, ref cbSize);
+        }
+
+        protected override byte[] HashFinal()
+        {
+            byte[] outb = new byte[20];
+            uint[] utemps = TransformBlock(buffer);
+
+            Buffer.BlockCopy(utemps, 0, outb, 0, utemps.Length*4);
+            return outb;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="offset"></param>
+        /// <param name="count"></param>
+        protected void AddToBuffer(byte[] array, ref int offset, ref int count)
+        {
+            int amount = Math.Min(count, buffer.Length - buffLength);
+            Buffer.BlockCopy(array, offset, buffer, buffLength, amount);
+            offset += amount;
+            buffLength += amount;
+            count -= amount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override byte[] Hash
+        {
+            get
+            {
+                return HashValue;
+            }
         }
 
         #region Const

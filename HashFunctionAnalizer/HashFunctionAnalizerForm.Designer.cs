@@ -41,6 +41,8 @@
             this.checkBoxSHA3512 = new System.Windows.Forms.CheckBox();
             this.HashTests = new System.Windows.Forms.TabControl();
             this.tabSpeedTest = new System.Windows.Forms.TabPage();
+            this.dataSize = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.chartOfSpeed = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.speedTestBtn = new System.Windows.Forms.Button();
             this.dataGridViewSpeedTest = new System.Windows.Forms.DataGridView();
@@ -128,6 +130,7 @@
             this.checkBoxSHA3224.TabIndex = 6;
             this.checkBoxSHA3224.Text = "SHA3-224";
             this.checkBoxSHA3224.UseVisualStyleBackColor = true;
+            this.checkBoxSHA3224.CheckedChanged += new System.EventHandler(this.checkBoxSHA3224_CheckedChanged);
             // 
             // checkBoxSHA3256
             // 
@@ -174,6 +177,8 @@
             // 
             // tabSpeedTest
             // 
+            this.tabSpeedTest.Controls.Add(this.dataSize);
+            this.tabSpeedTest.Controls.Add(this.label3);
             this.tabSpeedTest.Controls.Add(this.chartOfSpeed);
             this.tabSpeedTest.Controls.Add(this.speedTestBtn);
             this.tabSpeedTest.Controls.Add(this.dataGridViewSpeedTest);
@@ -185,6 +190,26 @@
             this.tabSpeedTest.Text = "SpeedTest [MB/s]";
             this.tabSpeedTest.UseVisualStyleBackColor = true;
             // 
+            // dataSize
+            // 
+            this.dataSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dataSize.Location = new System.Drawing.Point(921, 92);
+            this.dataSize.Name = "dataSize";
+            this.dataSize.Size = new System.Drawing.Size(100, 26);
+            this.dataSize.TabIndex = 4;
+            this.dataSize.Text = "100";
+            this.dataSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(919, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 16);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "DATA SIZE [MB]";
+            // 
             // chartOfSpeed
             // 
             chartArea1.Name = "ChartArea1";
@@ -193,13 +218,13 @@
             this.chartOfSpeed.Legends.Add(legend1);
             this.chartOfSpeed.Location = new System.Drawing.Point(0, 289);
             this.chartOfSpeed.Name = "chartOfSpeed";
-            this.chartOfSpeed.Size = new System.Drawing.Size(926, 300);
+            this.chartOfSpeed.Size = new System.Drawing.Size(917, 300);
             this.chartOfSpeed.TabIndex = 2;
             this.chartOfSpeed.Text = "chartOfSpeed";
             // 
             // speedTestBtn
             // 
-            this.speedTestBtn.Location = new System.Drawing.Point(933, 17);
+            this.speedTestBtn.Location = new System.Drawing.Point(927, 17);
             this.speedTestBtn.Name = "speedTestBtn";
             this.speedTestBtn.Size = new System.Drawing.Size(88, 34);
             this.speedTestBtn.TabIndex = 1;
@@ -212,7 +237,7 @@
             this.dataGridViewSpeedTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSpeedTest.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewSpeedTest.Name = "dataGridViewSpeedTest";
-            this.dataGridViewSpeedTest.Size = new System.Drawing.Size(926, 282);
+            this.dataGridViewSpeedTest.Size = new System.Drawing.Size(917, 282);
             this.dataGridViewSpeedTest.TabIndex = 0;
             // 
             // tabPage2
@@ -349,6 +374,7 @@
             this.Load += new System.EventHandler(this.HashFunctionAnalizerForm_Load);
             this.HashTests.ResumeLayout(false);
             this.tabSpeedTest.ResumeLayout(false);
+            this.tabSpeedTest.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartOfSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpeedTest)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -386,6 +412,8 @@
         private System.Windows.Forms.DataGridView dataGridViewHashCalculate;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartOfSpeed;
+        private System.Windows.Forms.TextBox dataSize;
+        private System.Windows.Forms.Label label3;
     }
 }
 
