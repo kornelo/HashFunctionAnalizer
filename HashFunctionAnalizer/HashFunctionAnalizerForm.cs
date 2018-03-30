@@ -29,6 +29,7 @@ namespace HashFunctionAnalizer
         {
             dataGridViewHashCalculate.Columns.Add("Function", "Function");
             dataGridViewHashCalculate.Columns.Add("Hash", "Hash");
+            dataSizeBox.Text = dataSizeBar.Value.ToString();
 
             dataGridViewSpeedTest.Columns.Add("Function", "Function");
             dataGridViewSpeedTest.Columns.Add("Speed", "Speed Mb/s");
@@ -315,23 +316,16 @@ namespace HashFunctionAnalizer
             for (int i = 0; i < someData.Length; i++)
                 someData[i] = Convert.ToByte(randomizeValue());
 
-            if (dataSize != null)
-                times = Convert.ToInt32(dataSize.Text);
-            else
-                times = 10;
+
+            times = Convert.ToInt32(dataSizeBar.Invoke(new Func<int>(dataSizeBarValue)));
 
             
                 if (this.dataGridViewSpeedTest.ColumnCount <= 2 || this.dataGridViewSpeedTest.ColumnCount < (times/5))
                     dataGridViewSpeedTest.Invoke(new Action<int>(AddCollumn), new object[] { times });
-            
-            Thread th;
-            SpeedOfHash speedTestRunner;
-            
-
+           
             switch (hashName)
             {
                 case "SHA1":
-                    //speedTestRunner = new SpeedOfHash();
                     alghorithm = new HashFunctions.SHA1();
                     SpeedCounting(alghorithm, hashName, someData, times);
                     break;
@@ -381,36 +375,35 @@ namespace HashFunctionAnalizer
 
         private void speedTestBtn_Click(object sender, EventArgs e)
         {
-            Action<string> act = speedTestOfHashFunctions;
-            Task t;
+            Action<string> action = speedTestOfHashFunctions;
 
             if (checkBoxSHA1.Checked)
-            { t = Task.Run(() => { act("SHA1"); }); }
+            { var t = Task.Run(() => { action("SHA1"); }); }
 
             if (checkBoxSHA224.Checked)
-            { t = Task.Run(() => { act("SHA224"); }); }
+            { var t = Task.Run(() => { action("SHA224"); }); }
 
             if (checkBoxSHA256.Checked)
-            { t = Task.Run(() => { act("SHA256"); }); }
+            { var t = Task.Run(() => { action("SHA256"); }); }
 
             if (checkBoxSHA384.Checked)
-            { t = Task.Run(() => { act("SHA384"); }); }
+            { var t = Task.Run(() => { action("SHA384"); }); }
 
             if (checkBoxSHA512.Checked)
-            { t = Task.Run(() => { act("SHA512"); }); }
+            { var t = Task.Run(() => { action("SHA512"); }); }
             
             if (checkBoxSHA3224.Checked)
-            { t = Task.Run(() => { act("SHA3-224"); }); }
+            { var t = Task.Run(() => { action("SHA3-224"); }); }
 
             if (checkBoxSHA3256.Checked)
-            { t = Task.Run(() => { act("SHA3-256"); }); }
+            { var t = Task.Run(() => { action("SHA3-256"); }); }
 
             if (checkBoxSHA3384.Checked)
-            { t = Task.Run(() => { act("SHA3-384"); }); }
+            { var t = Task.Run(() => { action("SHA3-384"); }); }
 
             if (checkBoxSHA3512.Checked)
-            { t = Task.Run(() => { act("SHA3-512"); }); }
-
+            { var t = Task.Run(() => { action("SHA3-512"); }); }
+            
         }
 
         private int randomizeValue()
@@ -440,13 +433,16 @@ namespace HashFunctionAnalizer
 
         public void SpeedCounting(HashAlgorithm alghorithm, string hashName, byte[] someData, int dataSize)
         {
-            var rowIndex = this.dataGridViewSpeedTest.Rows.Count;
+
+            var rowIndex = ColumnCounter();
+
+            dataGridViewSpeedTest.Invoke(new Action(AddRow));
+            
             var collumnCounter = 2;
             var begin = DateTime.UtcNow;
             var time = DateTime.UtcNow - begin;
             double result = 0.0;
 
-            dataGridViewSpeedTest.Invoke(new Action(AddRow));
             hashName += $"({ begin})";
 
             for (int i = 0; i <= dataSize; i++)
@@ -456,7 +452,7 @@ namespace HashFunctionAnalizer
                  time = DateTime.UtcNow - begin;
                 result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
 
-                if (i % 5 == 0)
+                if (i % 5 == 0 && i != 0)
                 {
                     dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[collumnCounter++].Value = $"{result:f2}";
                 }
@@ -483,7 +479,8 @@ namespace HashFunctionAnalizer
 
         public void AddCollumn(int times)
         {
-            for (int i = 0; i <= times; i++)
+           
+            for (int i = (dataGridViewSpeedTest.Columns.Count - 1 ) * 5; i <= times; i++)
                 if (i % 5 == 0)
                     dataGridViewSpeedTest.Columns.Add($"{i} Mb", $"{i} Mb");
         }
@@ -501,6 +498,27 @@ namespace HashFunctionAnalizer
         public void AddingPoints(string hashName, double x, double y)
         {
             chartOfSpeed.Series[this.chartOfSpeed.Series.IndexOf(hashName)].Points.AddXY(x, y);
+        }
+
+        private void dataSizeBar_Scroll(object sender, EventArgs e)
+        {
+            dataSizeBox.Text = dataSizeBar.Value.ToString();
+        }
+
+        public int dataSizeBarValue()
+        {
+           return dataSizeBar.Value;
+        }
+
+        private void clearData_Click(object sender, EventArgs e)
+        {
+            dataGridViewSpeedTest.Rows.Clear();
+            chartOfSpeed.Series.Clear();
+        }
+
+        public int ColumnCounter()
+        {
+            return dataGridViewSpeedTest.Rows.Count;
         }
     }
 }

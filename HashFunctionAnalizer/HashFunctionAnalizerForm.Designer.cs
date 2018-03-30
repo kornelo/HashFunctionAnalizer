@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.checkBoxSHA1 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA224 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA256 = new System.Windows.Forms.CheckBox();
@@ -41,7 +41,6 @@
             this.checkBoxSHA3512 = new System.Windows.Forms.CheckBox();
             this.HashTests = new System.Windows.Forms.TabControl();
             this.tabSpeedTest = new System.Windows.Forms.TabPage();
-            this.dataSize = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chartOfSpeed = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.speedTestBtn = new System.Windows.Forms.Button();
@@ -58,12 +57,16 @@
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.dataSizeBar = new System.Windows.Forms.TrackBar();
+            this.dataSizeBox = new System.Windows.Forms.TextBox();
+            this.clearData = new System.Windows.Forms.Button();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartOfSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpeedTest)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHashCalculate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSizeBar)).BeginInit();
             this.SuspendLayout();
             // 
             // checkBoxSHA1
@@ -177,7 +180,9 @@
             // 
             // tabSpeedTest
             // 
-            this.tabSpeedTest.Controls.Add(this.dataSize);
+            this.tabSpeedTest.Controls.Add(this.clearData);
+            this.tabSpeedTest.Controls.Add(this.dataSizeBox);
+            this.tabSpeedTest.Controls.Add(this.dataSizeBar);
             this.tabSpeedTest.Controls.Add(this.label3);
             this.tabSpeedTest.Controls.Add(this.chartOfSpeed);
             this.tabSpeedTest.Controls.Add(this.speedTestBtn);
@@ -190,21 +195,11 @@
             this.tabSpeedTest.Text = "SpeedTest [MB/s]";
             this.tabSpeedTest.UseVisualStyleBackColor = true;
             // 
-            // dataSize
-            // 
-            this.dataSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dataSize.Location = new System.Drawing.Point(921, 92);
-            this.dataSize.Name = "dataSize";
-            this.dataSize.Size = new System.Drawing.Size(100, 26);
-            this.dataSize.TabIndex = 4;
-            this.dataSize.Text = "100";
-            this.dataSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(919, 73);
+            this.label3.Location = new System.Drawing.Point(916, 107);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 16);
             this.label3.TabIndex = 3;
@@ -212,10 +207,10 @@
             // 
             // chartOfSpeed
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartOfSpeed.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartOfSpeed.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartOfSpeed.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartOfSpeed.Legends.Add(legend2);
             this.chartOfSpeed.Location = new System.Drawing.Point(0, 289);
             this.chartOfSpeed.Name = "chartOfSpeed";
             this.chartOfSpeed.Size = new System.Drawing.Size(917, 300);
@@ -354,6 +349,38 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // dataSizeBar
+            // 
+            this.dataSizeBar.Location = new System.Drawing.Point(950, 167);
+            this.dataSizeBar.Maximum = 500;
+            this.dataSizeBar.Minimum = 1;
+            this.dataSizeBar.Name = "dataSizeBar";
+            this.dataSizeBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.dataSizeBar.Size = new System.Drawing.Size(45, 380);
+            this.dataSizeBar.TabIndex = 4;
+            this.dataSizeBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.dataSizeBar.Value = 100;
+            this.dataSizeBar.Scroll += new System.EventHandler(this.dataSizeBar_Scroll);
+            // 
+            // dataSizeBox
+            // 
+            this.dataSizeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dataSizeBox.Location = new System.Drawing.Point(927, 126);
+            this.dataSizeBox.Name = "dataSizeBox";
+            this.dataSizeBox.Size = new System.Drawing.Size(88, 35);
+            this.dataSizeBox.TabIndex = 5;
+            this.dataSizeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // clearData
+            // 
+            this.clearData.Location = new System.Drawing.Point(927, 57);
+            this.clearData.Name = "clearData";
+            this.clearData.Size = new System.Drawing.Size(88, 34);
+            this.clearData.TabIndex = 6;
+            this.clearData.Text = "Clear";
+            this.clearData.UseVisualStyleBackColor = true;
+            this.clearData.Click += new System.EventHandler(this.clearData_Click);
+            // 
             // HashFunctionAnalizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +407,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHashCalculate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSizeBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,8 +440,10 @@
         private System.Windows.Forms.DataGridView dataGridViewHashCalculate;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartOfSpeed;
-        private System.Windows.Forms.TextBox dataSize;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TrackBar dataSizeBar;
+        private System.Windows.Forms.TextBox dataSizeBox;
+        private System.Windows.Forms.Button clearData;
     }
 }
 
