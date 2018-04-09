@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using HashFunctionAnalizer.HashFunctions;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Security.Cryptography;
-using System.Threading;
-using HashFunctionAnalizer.TestsClass;
 using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace HashFunctionAnalizer
 {
@@ -34,6 +35,8 @@ namespace HashFunctionAnalizer
             dataGridViewSpeedTest.Columns.Add("Function", "Function");
             dataGridViewSpeedTest.Columns.Add("Speed", "Speed Mb/s");
 
+            //CreateAvalancheBitmapAtRuntime("SHA3-512",new SHA3Managed(512));
+
         }
 
         private void hashKeyFileChooseBtn_Click(object sender, EventArgs e)
@@ -43,11 +46,11 @@ namespace HashFunctionAnalizer
         private void generateTextHashBtn_Click(object sender, EventArgs e)
         {
             _generateTextHashBtnClicked = true;
-            checkBoxSHA1_CheckedChanged(sender, e);
-            checkBoxSHA224_CheckedChanged(sender,e);
-            checkBoxSHA256_CheckedChanged(sender,e);
-            checkBoxSHA384_CheckedChanged(sender,e);
-            checkBoxSHA512_CheckedChanged(sender,e);
+            //CheckBoxSHA1_CheckedChanged(sender, e);
+            //CheckBoxSHA224_CheckedChanged(sender,e);
+            //CheckBoxSHA256_CheckedChanged(sender,e);
+            //CheckBoxSHA384_CheckedChanged(sender,e);
+            //CheckBoxSHA512_CheckedChanged(sender,e);
             _generateTextHashBtnClicked = false;
         }
 
@@ -93,87 +96,7 @@ namespace HashFunctionAnalizer
             return ByteArrayToString(alghoritm.ComputeHash(Encoding.UTF8.GetBytes(inputString)), alghoritm);
         }
 
-        private void checkBoxSHA1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA1.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA1", GetHashSha1(hashTextFiled.Text));
-        }
-
-        private void checkBoxSHA224_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA224.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA224", GetHashSha224(hashTextFiled.Text));
-
-            if (checkBoxSHA224.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA224");
-        }
-
-        private void checkBoxSHA256_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA256.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA256", GetHashSha256(hashTextFiled.Text));
-        
-            if (checkBoxSHA256.Checked && _speedTestHashBtnClicked)
-                 speedTestOfHashFunctions("SHA256");
-        }
-
-        private void checkBoxSHA384_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA384.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA384", GetHashSha384(hashTextFiled.Text));
-
-            if (checkBoxSHA384.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA384");
-        }
-
-        private void checkBoxSHA512_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA512.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA512", GetHashSha512(hashTextFiled.Text));
-
-            if (checkBoxSHA512.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA512");
-        }
-
-
-
-        private void checkBoxSHA3224_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA3224.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA3-224", GetHashSha3_512(hashTextFiled.Text));
-
-            if (checkBoxSHA3224.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA3-224");
-        }
-
-        private void checkBoxSHA3256_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA3256.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA3-256", GetHashSha3_512(hashTextFiled.Text));
-
-            if (checkBoxSHA3256.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA3-256");
-        }
-
-        private void checkBoxSHA3384_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA3384.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA3-384", GetHashSha3_512(hashTextFiled.Text));
-
-            if (checkBoxSHA3384.Checked && _speedTestHashBtnClicked)
-                speedTestOfHashFunctions("SHA3-384");
-        }
-
-        private void checkBoxSHA3512_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSHA3512.Checked && _generateTextHashBtnClicked)
-                dataGridViewHashCalculate.Rows.Add("SHA3-512", GetHashSha3_512(hashTextFiled.Text));
-            
-            if (checkBoxSHA3512.Checked && _speedTestHashBtnClicked)
-               speedTestOfHashFunctions("SHA3-512");
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        private void OpenFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
         }
 
@@ -193,134 +116,134 @@ namespace HashFunctionAnalizer
 
         private void generateFileHashBtn_Click(object sender, EventArgs e)
         {
-            Stream fileStream = null;
-            var openFileDialog = new OpenFileDialog();
-
-            openFileDialog.InitialDirectory = "\\";
-            openFileDialog.Filter = @"All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
+            var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = "\\",
+                Filter = @"All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    if (!((fileStream = openFileDialog.OpenFile()) == null))
-                        using (fileStream)
-                        {
-                            var imageData = new byte[fileStream.Length];
+                    Stream fileStream = null;
+                    if ((fileStream = openFileDialog.OpenFile()) == null) return;
+                    using (fileStream)
+                    {
+                        var imageData = new byte[fileStream.Length];
 
-                            fileStream.Read(imageData, 0, Convert.ToInt32(fileStream.Length));
-                            var fs = fileStream as FileStream;
-
-                           
-                            var hashSha1 = new HashFunctions.SHA1();
-                            var hashSha2 = new SHA2Managed();
-                            var hashSha3 = new SHA3Managed();
-
-                            ////SHA1
-                            //DateTime begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA1: " +
-                            //                  ByteArrayToString(hashSha1.ComputeHash(FileToByteArray(fs.Name)),hash));
-                            //TimeSpan time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length/(1024*1024)} hashed in: {time.TotalSeconds} s. {fs.Length/(1024*1024)/time.TotalSeconds} Mb/s");
-
-                            ////SHA224
-                            //hashSha2 = new SHA2Managed(224);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA224: " +
-                            //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA256
-                            //hashSha2 = new SHA2Managed(256);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA256: " +
-                            //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA84
-                            //hashSha2 = new SHA2Managed(384);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA384: " +
-                            //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA512
-                            //hashSha2 = new SHA2Managed(512);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA512: " +
-                            //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA3-224
-                            //hashSha3 = new SHA3Managed(224);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA3-224: " +
-                            //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA3-256
-                            //hashSha3 = new SHA3Managed(256);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA3-256: " +
-                            //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA3-384
-                            //hashSha3 = new SHA3Managed(384);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA3-385: " +
-                            //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
-
-                            ////SHA3-512
-                            //hashSha3 = new SHA3Managed(512);
-                            //begin = DateTime.UtcNow;
-                            //Console.WriteLine("FILE HASH SHA3-512: " +
-                            //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
-                            //time = DateTime.UtcNow - begin;
-                            //Console.WriteLine($"Data {fs.Length / (1024 * 1024)}:X2 hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+                        fileStream.Read(imageData, 0, Convert.ToInt32(fileStream.Length));
+                        var fs = fileStream as FileStream;
 
 
-                            //Close the File Stream
-                            fileStream.Close();
-                        }
+                        var hashSha1 = new HashFunctions.SHA1();
+                        var hashSha2 = new SHA2Managed();
+                        var hashSha3 = new SHA3Managed();
+
+                        ////SHA1
+                        //DateTime begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA1: " +
+                        //                  ByteArrayToString(hashSha1.ComputeHash(FileToByteArray(fs.Name)),hash));
+                        //TimeSpan time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length/(1024*1024)} hashed in: {time.TotalSeconds} s. {fs.Length/(1024*1024)/time.TotalSeconds} Mb/s");
+
+                        ////SHA224
+                        //hashSha2 = new SHA2Managed(224);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA224: " +
+                        //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA256
+                        //hashSha2 = new SHA2Managed(256);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA256: " +
+                        //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA84
+                        //hashSha2 = new SHA2Managed(384);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA384: " +
+                        //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA512
+                        //hashSha2 = new SHA2Managed(512);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA512: " +
+                        //                  ByteArrayToString(hashSha2.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA3-224
+                        //hashSha3 = new SHA3Managed(224);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA3-224: " +
+                        //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA3-256
+                        //hashSha3 = new SHA3Managed(256);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA3-256: " +
+                        //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA3-384
+                        //hashSha3 = new SHA3Managed(384);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA3-385: " +
+                        //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)} hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+                        ////SHA3-512
+                        //hashSha3 = new SHA3Managed(512);
+                        //begin = DateTime.UtcNow;
+                        //Console.WriteLine("FILE HASH SHA3-512: " +
+                        //                  ByteArrayToString(hashSha3.ComputeHash(FileToByteArray(fs.Name))));
+                        //time = DateTime.UtcNow - begin;
+                        //Console.WriteLine($"Data {fs.Length / (1024 * 1024)}:X2 hashed in: {time.TotalSeconds} s. {fs.Length / (1024 * 1024) / time.TotalSeconds} Mb/s");
+
+
+                        //Close the File Stream
+                        fileStream.Close();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show(@"Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
         }
 
-        private void dataGridViewHashCalculate_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewHashCalculate_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void speedTestOfHashFunctions(string hashName)
+        internal void SpeedTestOfHashFunctions(string hashName)
         {
             HashAlgorithm alghorithm;
-            int times;
 
             //randomize data
             var someData = new byte[1000000];
-            for (int i = 0; i < someData.Length; i++)
+            for (var i = 0; i < someData.Length; i++)
                 someData[i] = Convert.ToByte(randomizeValue());
 
 
-            times = Convert.ToInt32(dataSizeBar.Invoke(new Func<int>(dataSizeBarValue)));
+            var times = Convert.ToInt32(dataSizeBar.Invoke(new Func<int>(DataSizeBarValue)));
 
             
-                if (this.dataGridViewSpeedTest.ColumnCount <= 2 || this.dataGridViewSpeedTest.ColumnCount < (times/5))
+                if (dataGridViewSpeedTest.ColumnCount <= 2 || dataGridViewSpeedTest.ColumnCount < (times/5))
                     dataGridViewSpeedTest.Invoke(new Action<int>(AddCollumn), new object[] { times });
            
             switch (hashName)
@@ -368,15 +291,11 @@ namespace HashFunctionAnalizer
 
         }
 
-        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void speedTestBtn_Click(object sender, EventArgs e)
         {
-            Action<string> action = speedTestOfHashFunctions;
-
+            Action<string> action = SpeedTestOfHashFunctions;
+            
             if (checkBoxSHA1.Checked)
             { var t = Task.Run(() => { action("SHA1"); }); }
 
@@ -408,20 +327,17 @@ namespace HashFunctionAnalizer
 
         private int randomizeValue()
         {
-            Random rnd = new Random();
+            var rnd = new Random();
             return rnd.Next(100);
         }
 
         public static string ByteArrayToString(byte[] ba, object hash)
         {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            var hex = new StringBuilder(ba.Length * 2);
 
             int length;
 
-            if (ba.Length > 32)
-                length = 8;
-            else
-                length = 4;
+            length = ba.Length > 32 ? 8 : 4;
 
             for (var x = 0; x < ba.Length; x += length)
                 for (var i = length - 1; i >= 0; i--)
@@ -433,24 +349,25 @@ namespace HashFunctionAnalizer
 
         public void SpeedCounting(HashAlgorithm alghorithm, string hashName, byte[] someData, int dataSize)
         {
-
+            clearData.Invoke(new Action<bool>(ClearDataBtnState), false);
             var rowIndex = ColumnCounter();
 
             dataGridViewSpeedTest.Invoke(new Action(AddRow));
             
             var collumnCounter = 2;
             var begin = DateTime.UtcNow;
-            var time = DateTime.UtcNow - begin;
-            double result = 0.0;
+            var result = 0.0;
 
             hashName += $"({ begin})";
 
-            for (int i = 0; i <= dataSize; i++)
+            TimeSpan time;
+
+            for (var i = 0; i <= dataSize; i++)
             {
                 alghorithm.ComputeHash(someData);
 
-                 time = DateTime.UtcNow - begin;
-                result = (double)(someData.Length * i / (1024 * 1024) / time.TotalSeconds);
+                time = DateTime.UtcNow - begin;
+                result = someData.Length * i / (1024 * 1024) / time.TotalSeconds;
 
                 if (i % 5 == 0 && i != 0)
                 {
@@ -462,16 +379,16 @@ namespace HashFunctionAnalizer
             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[0].Value = hashName;
             dataGridViewSpeedTest.Rows[rowIndex - 1].Cells[1].Value = $"{result:f2}";
 
-            Console.WriteLine("HASH {0} with speed: {1} Mb data in {2:f2}s", hashName, someData.Length * dataSize / (1024 * 1024), time.TotalSeconds);
+            Console.WriteLine($"HASH {hashName} with speed: {someData.Length * dataSize / (1024 * 1024)} Mb data in {time.TotalSeconds:f2}s");
             rowIndex++;
+            clearData.Invoke(new Action<bool>(ClearDataBtnState), true);
         }
 
         public void ChartUpdate(string hashName, double x, double y)
         {
-            var series = new Series(hashName);
-            series.ChartType = SeriesChartType.Spline;
+            var series = new Series(hashName) {ChartType = SeriesChartType.Spline};
 
-           if (chartOfSpeed.Series.FindByName(hashName) != null)
+            if (chartOfSpeed.Series.FindByName(hashName) != null)
                 chartOfSpeed.Invoke(new Action<string,double,double>(AddingPoints), new object[] { hashName, x, y });
            else
              chartOfSpeed.Invoke(new Action<Series>(AddSeries), new object[] { series });
@@ -497,7 +414,7 @@ namespace HashFunctionAnalizer
 
         public void AddingPoints(string hashName, double x, double y)
         {
-            chartOfSpeed.Series[this.chartOfSpeed.Series.IndexOf(hashName)].Points.AddXY(x, y);
+            chartOfSpeed.Series[chartOfSpeed.Series.IndexOf(hashName)].Points.AddXY(x, y);
         }
 
         private void dataSizeBar_Scroll(object sender, EventArgs e)
@@ -505,12 +422,12 @@ namespace HashFunctionAnalizer
             dataSizeBox.Text = dataSizeBar.Value.ToString();
         }
 
-        public int dataSizeBarValue()
+        public int DataSizeBarValue()
         {
            return dataSizeBar.Value;
         }
 
-        private void clearData_Click(object sender, EventArgs e)
+        private void ClearData_Click(object sender, EventArgs e)
         {
             dataGridViewSpeedTest.Rows.Clear();
             chartOfSpeed.Series.Clear();
@@ -519,6 +436,129 @@ namespace HashFunctionAnalizer
         public int ColumnCounter()
         {
             return dataGridViewSpeedTest.Rows.Count;
+        }
+
+        public void ClearDataBtnState(bool state)
+        {
+            clearData.Enabled = state;
+        }
+
+
+        public void CreateAvalancheBitmapAtRuntime(string hashName, HashAlgorithm alghorithm)
+        {
+            var flag = new Bitmap(800, 200);
+            var flagGraphics = Graphics.FromImage(flag);
+            var width = 0;
+            var height = 0;
+            flagGraphics.FillRectangle(Brushes.Yellow, width, height, 800, 200);
+            //dataGridAvalancheTest.Rows[0].Cells[1].Value = flag;
+            width = 10;
+            var probe = flag.Height;
+
+            for (var i = flag.Width; i >= 5; i -= 5)
+            {
+                while (height < 200)
+                {
+                    var brush = new SolidBrush(Color.FromArgb(BitConverter.ToInt32(alghorithm.ComputeHash(BitConverter.GetBytes(flag.GetPixel(width, height).ToArgb())), 0)));
+                    flagGraphics.FillRectangle(brush, width, 0, 10, flag.Height - height);
+                    height += probe;
+                   
+                }
+                probe = probe / 2 + probe % 2;
+                width += 10;
+                height = 0;
+               if (width == flag.Width) break;
+             }
+
+            dataGridAvalancheTest.Rows[0].Cells[0].Value = hashName;
+            dataGridAvalancheTest.Rows[0].Cells[1].Value = flag;
+        }
+
+
+        internal void AvalancheTestOfHashFunctions(string hashName)
+        {
+            HashAlgorithm alghorithm;
+
+            switch (hashName)
+            {
+                case "SHA1":
+                    alghorithm = new HashFunctions.SHA1();
+                    CreateAvalancheBitmapAtRuntime(hashName,alghorithm);
+                    break;
+                case "SHA224":
+                    alghorithm = new SHA2Managed(224);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA256":
+                    alghorithm = new SHA2Managed(256);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA384":
+                    alghorithm = new SHA2Managed(384);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA512":
+                    alghorithm = new SHA2Managed(512);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA3-224":
+                    alghorithm = new SHA3Managed(224);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA3-256":
+                    alghorithm = new SHA3Managed(256);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA3-384":
+                    alghorithm = new SHA3Managed(384);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                case "SHA3-512":
+                    alghorithm = new SHA3Managed(512);
+                    CreateAvalancheBitmapAtRuntime(hashName, alghorithm);
+                    break;
+                default:
+
+                    break;
+            }
+
+        }
+
+        private void avalancheTestStartBtn_Click(object sender, EventArgs e)
+        {
+            Action<string> action = AvalancheTestOfHashFunctions;
+
+            if (checkBoxSHA1.Checked)
+            { var t = Task.Run(() => { action("SHA1"); }); }
+
+            if (checkBoxSHA224.Checked)
+            { var t = Task.Run(() => { action("SHA224"); }); }
+
+            if (checkBoxSHA256.Checked)
+            { var t = Task.Run(() => { action("SHA256"); }); }
+
+            if (checkBoxSHA384.Checked)
+            { var t = Task.Run(() => { action("SHA384"); }); }
+
+            if (checkBoxSHA512.Checked)
+            { var t = Task.Run(() => { action("SHA512"); }); }
+
+            if (checkBoxSHA3224.Checked)
+            { var t = Task.Run(() => { action("SHA3-224"); }); }
+
+            if (checkBoxSHA3256.Checked)
+            { var t = Task.Run(() => { action("SHA3-256"); }); }
+
+            if (checkBoxSHA3384.Checked)
+            { var t = Task.Run(() => { action("SHA3-384"); }); }
+
+            if (checkBoxSHA3512.Checked)
+            { var t = Task.Run(() => { action("SHA3-512"); }); }
+        }
+
+        public void HashingImageProcess(HashAlgorithm algorithm)
+        {
+            
         }
     }
 }

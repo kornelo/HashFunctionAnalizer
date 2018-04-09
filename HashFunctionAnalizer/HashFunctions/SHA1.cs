@@ -6,8 +6,8 @@ namespace HashFunctionAnalizer.HashFunctions
     internal class SHA1: HashAlgorithm
     {
         internal readonly uint[] _h = new uint[5];
-        internal byte[] buffer;
-        internal int buffLength;
+        internal byte[] Buffer1 { get; set; }
+        internal int BuffLength { get; set; }
 
         public SHA1()
         {
@@ -20,8 +20,8 @@ namespace HashFunctionAnalizer.HashFunctions
 
         public override void Initialize()
         {
-            buffer = null;
-            buffLength = 0;
+            Buffer1 = null;
+            BuffLength = 0;
             HashValue = null;
 
             _h[0] = 0x67452301;
@@ -174,17 +174,17 @@ namespace HashFunctionAnalizer.HashFunctions
                 throw new ArgumentOutOfRangeException("cbSize");
             if (ibStart + cbSize > array.Length)
                 throw new ArgumentOutOfRangeException("ibStart or cbSize");
-            if (buffer == null)
-                buffer = new byte[array.Length];
+            if (Buffer1 == null)
+                Buffer1 = new byte[array.Length];
             AddToBuffer(array, ref ibStart, ref cbSize);
         }
 
         protected override byte[] HashFinal()
         {
             byte[] outb = new byte[20];
-            uint[] utemps = TransformBlock(buffer);
+            uint[] utemps = TransformBlock(Buffer1);
 
-            Buffer.BlockCopy(utemps, 0, outb, 0, utemps.Length*4);
+            System.Buffer.BlockCopy(utemps, 0, outb, 0, utemps.Length*4);
             return outb;
         }
 
@@ -196,10 +196,10 @@ namespace HashFunctionAnalizer.HashFunctions
         /// <param name="count"></param>
         protected void AddToBuffer(byte[] array, ref int offset, ref int count)
         {
-            int amount = Math.Min(count, buffer.Length - buffLength);
-            Buffer.BlockCopy(array, offset, buffer, buffLength, amount);
+            int amount = Math.Min(count, Buffer1.Length - BuffLength);
+            System.Buffer.BlockCopy(array, offset, Buffer1, BuffLength, amount);
             offset += amount;
-            buffLength += amount;
+            BuffLength += amount;
             count -= amount;
         }
 

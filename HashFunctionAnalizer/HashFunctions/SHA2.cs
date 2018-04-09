@@ -191,7 +191,7 @@ namespace HashFunctionAnalizer.HashFunctions
         /// <summary>
         /// 
         /// </summary>
-        public override void Initialize()
+        public sealed override void Initialize()
         {
             buffLength = 0;
             if (HashSizeValue == 224 || HashSizeValue == 256)
