@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.checkBoxSHA1 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA224 = new System.Windows.Forms.CheckBox();
             this.checkBoxSHA256 = new System.Windows.Forms.CheckBox();
@@ -62,8 +62,6 @@
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AvalancheImg = new System.Windows.Forms.DataGridViewImageColumn();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSizeBar)).BeginInit();
@@ -230,7 +228,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(916, 107);
+            this.label3.Location = new System.Drawing.Point(919, 107);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 16);
             this.label3.TabIndex = 3;
@@ -238,10 +236,10 @@
             // 
             // chartOfSpeed
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartOfSpeed.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartOfSpeed.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chartOfSpeed.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartOfSpeed.Legends.Add(legend1);
             this.chartOfSpeed.Location = new System.Drawing.Point(0, 289);
             this.chartOfSpeed.Name = "chartOfSpeed";
             this.chartOfSpeed.Size = new System.Drawing.Size(917, 300);
@@ -256,7 +254,7 @@
             this.speedTestBtn.TabIndex = 1;
             this.speedTestBtn.Text = "Start";
             this.speedTestBtn.UseVisualStyleBackColor = true;
-            this.speedTestBtn.Click += new System.EventHandler(this.speedTestBtn_Click);
+            this.speedTestBtn.Click += new System.EventHandler(this.SpeedTestBtn_Click);
             // 
             // dataGridViewSpeedTest
             // 
@@ -292,9 +290,6 @@
             // 
             this.dataGridAvalancheTest.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridAvalancheTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAvalancheTest.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Hash,
-            this.AvalancheImg});
             this.dataGridAvalancheTest.Location = new System.Drawing.Point(-4, 0);
             this.dataGridAvalancheTest.Name = "dataGridAvalancheTest";
             this.dataGridAvalancheTest.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -309,7 +304,7 @@
             this.avalancheTestStartBtn.TabIndex = 2;
             this.avalancheTestStartBtn.Text = "START";
             this.avalancheTestStartBtn.UseVisualStyleBackColor = true;
-            this.avalancheTestStartBtn.Click += new System.EventHandler(this.avalancheTestStartBtn_Click);
+            this.avalancheTestStartBtn.Click += new System.EventHandler(this.AvalancheTestStartBtn_Click);
             // 
             // tabPage3
             // 
@@ -336,7 +331,6 @@
             this.dataGridViewHashCalculate.Name = "dataGridViewHashCalculate";
             this.dataGridViewHashCalculate.Size = new System.Drawing.Size(983, 462);
             this.dataGridViewHashCalculate.TabIndex = 9;
-            this.dataGridViewHashCalculate.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewHashCalculate_CellContentClick);
             // 
             // generateTextHashBtn
             // 
@@ -346,7 +340,7 @@
             this.generateTextHashBtn.TabIndex = 8;
             this.generateTextHashBtn.Text = "Generate (Text Hash)";
             this.generateTextHashBtn.UseVisualStyleBackColor = true;
-            this.generateTextHashBtn.Click += new System.EventHandler(this.generateTextHashBtn_Click);
+            this.generateTextHashBtn.Click += new System.EventHandler(this.GenerateTextHashBtn_Click);
             // 
             // generateFileHashBtn
             // 
@@ -404,20 +398,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog1_FileOk);
-            // 
-            // Hash
-            // 
-            this.Hash.HeaderText = "Hash";
-            this.Hash.Name = "Hash";
-            // 
-            // AvalancheImg
-            // 
-            this.AvalancheImg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AvalancheImg.HeaderText = "AvalancheImg";
-            this.AvalancheImg.MinimumWidth = 255;
-            this.AvalancheImg.Name = "AvalancheImg";
-            this.AvalancheImg.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AvalancheImg.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HashFunctionAnalizerForm
             // 
@@ -486,8 +466,6 @@
         private System.Windows.Forms.Button clearData;
         private System.Windows.Forms.Button avalancheTestStartBtn;
         private System.Windows.Forms.DataGridView dataGridAvalancheTest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
-        private System.Windows.Forms.DataGridViewImageColumn AvalancheImg;
     }
 }
 

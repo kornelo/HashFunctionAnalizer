@@ -208,7 +208,8 @@ namespace HashFunctionAnalizer.HashFunctions
         internal readonly uint[] K_32;
         internal ulong[] state_64;
         internal uint[] state_32;
-        internal byte[] buffer;
+        internal byte[] Buffer { get; set; }
+
         internal int buffLength;
         //protected new byte[] HashValue;
         //protected new int HashSizeValue;
@@ -262,8 +263,8 @@ namespace HashFunctionAnalizer.HashFunctions
         /// <param name="count"></param>
         protected void AddToBuffer(byte[] array, ref int offset, ref int count)
         {
-            int amount = Math.Min(count, buffer.Length - buffLength);
-            Buffer.BlockCopy(array, offset, buffer, buffLength, amount);
+            int amount = Math.Min(count, Buffer.Length - buffLength);
+            System.Buffer.BlockCopy(array, offset, Buffer, buffLength, amount);
             offset += amount;
             buffLength += amount;
             count -= amount;

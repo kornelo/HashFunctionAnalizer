@@ -45,6 +45,7 @@ namespace HashFunctionAnalizer
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
             Console.WriteLine($"Speed of hashing: {((double)(Encoding.ASCII.GetBytes(word).Length / 1024) * 1000L * 1000L * 10L / (stopwatch.ElapsedTicks)):f2} bps");
 
+
             SHA2Managed hash6 = new SHA2Managed(512);
             stopwatch.Reset();
             Console.WriteLine($"Proper HASH SHA-512(word): {ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word)),hash6)}");
