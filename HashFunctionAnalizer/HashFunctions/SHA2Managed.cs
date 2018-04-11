@@ -33,8 +33,8 @@ namespace HashFunctionAnalizer.HashFunctions
             if (cbSize == 0)
                 return;
             int sizeInBytes = array.Length;
-            if (buffer == null)
-                buffer = new byte[sizeInBytes];
+            if (Buffer == null)
+                Buffer = new byte[sizeInBytes];
             int stride = sizeInBytes;
             ulong[] utemps = new ulong[stride];
             if (buffLength == sizeInBytes)
@@ -56,16 +56,16 @@ namespace HashFunctionAnalizer.HashFunctions
             if (HashSizeValue == 224 || HashSizeValue == 256)
             {
                 uint[] utemps = new uint[stride];
-                utemps = PadInput_32(buffer);
+                utemps = PadInput_32(Buffer);
                 TransformBlock32(utemps, Rounds);
-                Buffer.BlockCopy(state_32, 0, outb, 0, HashByteLength);
+                System.Buffer.BlockCopy(state_32, 0, outb, 0, HashByteLength);
             }
             else
             {
                 ulong[] utemps = new ulong[stride];
-                utemps = PadInput_64(buffer);
+                utemps = PadInput_64(Buffer);
                 TransformBlock64(utemps, Rounds);
-                Buffer.BlockCopy(state_64, 0, outb, 0, HashByteLength);
+                System.Buffer.BlockCopy(state_64, 0, outb, 0, HashByteLength);
             }
 
                 return outb;
@@ -73,10 +73,11 @@ namespace HashFunctionAnalizer.HashFunctions
 
         private uint[] PadInput_32(byte[] input)
         {
-            uint bytesToPad;
+            if(input==null) input = new byte[]{};
+            
+            var bytesToPad = Convert.ToUInt32((64 - (input.Length % 64)) % 64);
+            if (input.Length == 0) bytesToPad = 64;
 
-                bytesToPad = Convert.ToUInt32((64 - (input.Length % 64)) % 64);
-                if (input.Length == 0) bytesToPad = 64;
 
             var paddedInput = new byte[input.Length + bytesToPad];
 
@@ -127,10 +128,11 @@ namespace HashFunctionAnalizer.HashFunctions
 
         private ulong[] PadInput_64(byte[] input)
         {
-            uint bytesToPad;
 
-                bytesToPad = Convert.ToUInt32((128 - (input.Length % 128)) % 128);
-                if (input.Length == 0) bytesToPad = 128;
+            if (input == null) input = new byte[] { };
+
+            var bytesToPad = Convert.ToUInt32((128 - (input.Length % 128)) % 128);
+            if (input.Length == 0) bytesToPad = 128;
 
             var paddedInput = new byte[input.Length + bytesToPad];
 
