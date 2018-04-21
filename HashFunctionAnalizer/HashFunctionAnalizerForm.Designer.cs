@@ -62,6 +62,8 @@
             this.hashTextFiled = new System.Windows.Forms.TextBox();
             this.hashFilePath = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.clrAvalacheBtn = new System.Windows.Forms.Button();
+            this.clrHashsListBtn = new System.Windows.Forms.Button();
             this.HashTests.SuspendLayout();
             this.tabSpeedTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSizeBar)).BeginInit();
@@ -276,6 +278,7 @@
             // 
             // tabAvalancheTest
             // 
+            this.tabAvalancheTest.Controls.Add(this.clrAvalacheBtn);
             this.tabAvalancheTest.Controls.Add(this.dataGridAvalancheTest);
             this.tabAvalancheTest.Controls.Add(this.avalancheTestStartBtn);
             this.tabAvalancheTest.Location = new System.Drawing.Point(4, 22);
@@ -302,12 +305,13 @@
             this.avalancheTestStartBtn.Name = "avalancheTestStartBtn";
             this.avalancheTestStartBtn.Size = new System.Drawing.Size(86, 40);
             this.avalancheTestStartBtn.TabIndex = 2;
-            this.avalancheTestStartBtn.Text = "START";
+            this.avalancheTestStartBtn.Text = "Start";
             this.avalancheTestStartBtn.UseVisualStyleBackColor = true;
             this.avalancheTestStartBtn.Click += new System.EventHandler(this.AvalancheTestStartBtn_Click);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.clrHashsListBtn);
             this.tabPage3.Controls.Add(this.dataGridViewHashCalculate);
             this.tabPage3.Controls.Add(this.generateTextHashBtn);
             this.tabPage3.Controls.Add(this.generateFileHashBtn);
@@ -399,6 +403,26 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog1_FileOk);
             // 
+            // clrAvalacheBtn
+            // 
+            this.clrAvalacheBtn.Location = new System.Drawing.Point(928, 101);
+            this.clrAvalacheBtn.Name = "clrAvalacheBtn";
+            this.clrAvalacheBtn.Size = new System.Drawing.Size(85, 39);
+            this.clrAvalacheBtn.TabIndex = 4;
+            this.clrAvalacheBtn.Text = "Clear";
+            this.clrAvalacheBtn.UseVisualStyleBackColor = true;
+            this.clrAvalacheBtn.Click += new System.EventHandler(this.clrAvalacheBtn_Click);
+            // 
+            // clrHashsListBtn
+            // 
+            this.clrHashsListBtn.Location = new System.Drawing.Point(839, 76);
+            this.clrHashsListBtn.Name = "clrHashsListBtn";
+            this.clrHashsListBtn.Size = new System.Drawing.Size(136, 21);
+            this.clrHashsListBtn.TabIndex = 10;
+            this.clrHashsListBtn.Text = "Clear list";
+            this.clrHashsListBtn.UseVisualStyleBackColor = true;
+            this.clrHashsListBtn.Click += new System.EventHandler(this.clrHashsListBtn_Click);
+            // 
             // HashFunctionAnalizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,6 +490,8 @@
         private System.Windows.Forms.Button clearData;
         private System.Windows.Forms.Button avalancheTestStartBtn;
         private System.Windows.Forms.DataGridView dataGridAvalancheTest;
+        private System.Windows.Forms.Button clrAvalacheBtn;
+        private System.Windows.Forms.Button clrHashsListBtn;
     }
 }
 
