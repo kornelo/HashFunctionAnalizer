@@ -47,17 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bin.cs" />
+    <Compile Include="Bitstring.cs" />
+    <Compile Include="HashCoders.cs" />
     <Compile Include="HashFunctionAnalizerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HashFunctionAnalizerForm.Designer.cs">
       <DependentUpon>HashFunctionAnalizerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HashFunctions\KeccakPermutations.cs" />
     <Compile Include="HashFunctions\SHA1.cs" />
     <Compile Include="HashFunctions\SHA2.cs" />
     <Compile Include="HashFunctions\SHA2Managed.cs" />
     <Compile Include="HashFunctions\SHA3.cs" />
-    <Compile Include="HashFunctions\SHA3Managed.cs" />
+    <Compile Include="HashFunctions\SpongeConstruction.cs" />
+    <Compile Include="HashFunctions\SpongeState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HashFunctionAnalizerForm.resx">

@@ -185,6 +185,7 @@ namespace HashFunctionAnalizer.HashFunctions
             uint[] utemps = TransformBlock(Buffer1);
 
             System.Buffer.BlockCopy(utemps, 0, outb, 0, utemps.Length*4);
+            outb = PrepareOutput(outb);
             return outb;
         }
 
@@ -212,6 +213,23 @@ namespace HashFunctionAnalizer.HashFunctions
             {
                 return HashValue;
             }
+        }
+
+        public byte[] PrepareOutput(byte[] state)
+        {
+            int length = state.Length > 32 ? 8 : 4;
+            var tmp = new byte[state.Length];
+            int i = 0;
+
+            for (var x = 0; x < state.Length; x += length)
+            {
+                for (var y = length - 1; y >= 0; y--)
+                {
+                    tmp[i] = state[x + y];
+                    i++;
+                }
+            }
+            return tmp;
         }
 
         #region Const

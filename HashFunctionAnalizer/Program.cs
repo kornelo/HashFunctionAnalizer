@@ -24,22 +24,22 @@ namespace HashFunctionAnalizer
 
             HashAlgorithm hash = new HashFunctions.SHA1();
             stopwatch.Start();
-            Console.WriteLine($@"Proper HASH SHA1(data): {ByteArrayToString(hash.ComputeHash(data),hash)}");
+            Console.WriteLine($@"Proper HASH SHA1(data): {ByteArrayToString(hash.ComputeHash(data))}");
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             stopwatch.Reset();
             stopwatch.Start();
-            Console.WriteLine($"Proper HASH SHA1 (word): {ByteArrayToString(hash.ComputeHash(Encoding.ASCII.GetBytes(word)),hash)}");
+            Console.WriteLine($"Proper HASH SHA1 (word): {ByteArrayToString(hash.ComputeHash(Encoding.ASCII.GetBytes(word)))}");
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
             Console.WriteLine($"Speed of hashing: {Encoding.ASCII.GetBytes(word).Length * 1000000 / stopwatch.Elapsed.Ticks} bps");
 
 
-            SHA3Managed hash5 = new SHA3Managed(256);
+            SHA3 hash5 = new SHA3(256);
             stopwatch.Reset();
             stopwatch.Start();
-            Console.WriteLine($"Proper HASH SHA3-512 (word): {ByteArrayToString(hash5.ComputeHash(Encoding.UTF8.GetBytes(word)),hash5)}");
+            Console.WriteLine($"Proper HASH SHA3-512 (word): {ByteArrayToString(hash5.ComputeHash(Encoding.UTF8.GetBytes(word)))}");
             stopwatch.Stop();
             Console.WriteLine($"Data hashed in: {stopwatch.Elapsed} s");
             Console.WriteLine($"Data hashed in: {stopwatch.ElapsedTicks} ticks");
@@ -48,11 +48,11 @@ namespace HashFunctionAnalizer
 
             SHA2Managed hash6 = new SHA2Managed(512);
             stopwatch.Reset();
-            Console.WriteLine($"Proper HASH SHA-512(word): {ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word)),hash6)}");
+            Console.WriteLine($"Proper HASH SHA-512(word): {ByteArrayToString(hash6.ComputeHash(Encoding.UTF8.GetBytes(word)))}");
 
             SHA2Managed hash7 = new SHA2Managed(224);
             stopwatch.Reset();
-            Console.WriteLine($"Proper HASH SHA-224(word): {ByteArrayToString(hash7.ComputeHash(Encoding.UTF8.GetBytes(word)),hash7)}");
+            Console.WriteLine($"Proper HASH SHA-224(word): {ByteArrayToString(hash7.ComputeHash(Encoding.UTF8.GetBytes(word)))}");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -74,18 +74,13 @@ namespace HashFunctionAnalizer
             return result;
         }
 
-        public static string ByteArrayToString(byte[] ba, object hash)
+        public static string ByteArrayToString(byte[] ba)
         {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            var hex = new StringBuilder(ba.Length * 2);
 
-            int length;
-
-            length = ba.Length > 32 ? 8 : 4;
-
-            for (var x =0; x<ba.Length; x+=length)
-            for (var i = length -1; i >= 0; i--)
+            foreach (byte t in ba)
             {
-                    hex.AppendFormat("{0:X2}", ba[x + i]); 
+                hex.AppendFormat("{0:X2}", t);
             }
             return hex.ToString();
         }

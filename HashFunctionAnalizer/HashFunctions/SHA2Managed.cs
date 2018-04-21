@@ -49,25 +49,26 @@ namespace HashFunctionAnalizer.HashFunctions
         /// <returns></returns>
         protected override byte[] HashFinal()
         {
-            int sizeInBytes = SizeInBytes;
-            byte[] outb = new byte[HashByteLength];
+            var sizeInBytes = SizeInBytes;
+            var outb = new byte[HashByteLength];
 
-            int stride = sizeInBytes;
+            var stride = sizeInBytes;
             if (HashSizeValue == 224 || HashSizeValue == 256)
             {
-                uint[] utemps = new uint[stride];
+                var utemps = new uint[stride];
                 utemps = PadInput_32(Buffer);
                 TransformBlock32(utemps, Rounds);
                 System.Buffer.BlockCopy(state_32, 0, outb, 0, HashByteLength);
             }
             else
             {
-                ulong[] utemps = new ulong[stride];
+                var utemps = new ulong[stride];
                 utemps = PadInput_64(Buffer);
                 TransformBlock64(utemps, Rounds);
                 System.Buffer.BlockCopy(state_64, 0, outb, 0, HashByteLength);
             }
 
+            outb = PrepareOutput(outb);
                 return outb;
         }
 
@@ -308,5 +309,23 @@ namespace HashFunctionAnalizer.HashFunctions
             state_32[7] = h + state_32[7];
 
         }
+
+        public byte[] PrepareOutput(byte[] state)
+        {
+            int length = state.Length > 32 ? 8 : 4;
+            var tmp = new byte[state.Length];
+            int i = 0;
+
+            for (var x = 0; x < state.Length; x += length)
+            {
+                for (var y = length - 1; y >= 0; y--)
+                {
+                    tmp[i] = state[x + y];
+                    i++;
+                }
+            }
+            return tmp;
+        }
     }
+
 }
